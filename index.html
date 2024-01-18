@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Countries</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+
+    
+    <header class="bg-dark text-white">
+
+        <!-- Video element in header -->
+        <video class="header-video" autoplay muted loop>
+            <source src="media/background-video-landscape.mp4" type="video/mp4">
+            Your browser does not support the video tag.
+        </video>
+
+        <div class="logo-container">
+            <img src="media/logo.png" alt="Logo" class="logo">
+        </div>
+
+        <div class="search-container">
+            <p class="search-text">Explore hotels around the world...</p>
+            <div class="search-wrapper">
+                <input type="text" class="form-control" id="searchInput" placeholder="Type the city of interest">
+                <button class="btn btn-primary" onclick="searchCountry()">Search 🔎</button>
+            </div>
+        </div>
+    </header>
+
+    <section class="example-section">
+        <p>Recommendations:</p>
+        <a href="#" onclick="searchExample('Example 1')" class="btn btn-success">Example 1</a>
+        <a href="#" onclick="searchExample('Example 2')" class="btn btn-success">Example 2</a>
+        <a href="#" onclick="searchExample('Example 3')" class="btn btn-success">Example 3</a>
+        <a href="#" onclick="searchExample('Example 4')" class="btn btn-success">Example 4</a>
+        <a href="#" onclick="searchExample('Example 5')" class="btn btn-success">Example 5</a>
+    </section>
+
+
+    <main class="container">
+        <section class="country-info" id="countryInfo">
+            <div class="country-name grid-item">Country Name: Placeholder</div>
+            <div class="cities grid-item">Main Cities: Placeholder</div>
+            <div class="pictures grid-item">Pictures: Placeholder</div>
+            <button class="btn btn-warning" onclick="saveToLocalStorage()">Save Place ⭐</button>
+        </section>
+
+        <section class="recipes" id="recipes">
+            <h2>List of hotels</h2>
+            <!-- Recipe content here -->
+        </section>
+
+        <section class="additional-info" id="additionalInfo">
+            <h2>Additional Information</h2>
+            <!-- Additional information about the country here -->
+        </section>
+
+        <section class="saved-info" id="savedInfo">
+            <h2>Saved Places of Interest</h2>
+            <ul id="savedList"></ul>
+        </section>
+    </main>
+
+    <script src="script.js"></script>
+
+    <!-- Footer content-->
+    <footer class="bg-dark text-white text-center py-3">
+        <p>&copy; 2024 Hotel Horizon</p>
+    </footer>
+</body>
+
+</html>

@@ -1,0 +1,222 @@
+/* Logo Styles */
+.logo-container {
+    position: absolute;
+    top: 20px; 
+    left: 20px;
+    z-index: 2; 
+}
+
+.logo {
+    max-width: 50%;
+    height: auto;
+}
+
+/* General Styles */
+body {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Arial', sans-serif;
+    background: url('media/background-image-green.jpg') center/cover no-repeat fixed;
+}
+
+/* Header - Hero Styles */
+header {
+    position: relative;
+    height: 50vh;
+    overflow: hidden;
+}
+
+.header-video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.header-content {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+    color: white;
+    opacity: 0.9; /
+    z-index: 2; 
+}
+
+/* Search Container Styles */
+.search-container {
+    text-align: center;
+    margin-top: 20px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 1;
+    display: flex; 
+    flex-direction: column;
+    align-items: center;
+}
+
+.search-text {
+    color: #ffffff;
+    font-size: 40px;
+    position: relative;
+    text-shadow: 2px 2px 4px black; 
+}
+
+/* Search Wrapper Styles */
+.search-wrapper {
+    display: flex; 
+    align-items: center;
+    justify-content: center;
+}
+
+.search-wrapper input {
+    padding: 10px;
+    margin-right: 5px; 
+    width: 300px;
+}
+
+/* Search Button Styles */
+button {
+    padding: 10px;
+    background: linear-gradient(135deg, #FFD700, #dc4927);
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s, box-shadow 0.3s;
+}
+
+button:hover {
+    background: linear-gradient(135deg, #dc4927, #FFD700);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+}
+
+button:active {
+    background: blue;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+}
+
+/* Example Countries Buttons Styles*/
+.example-section {
+    text-align: center;
+    margin-top: 20px;
+}
+
+.example-section p {
+    font-weight: bold;
+}
+
+.example-section a {
+    display: inline-block;
+    margin: 10px;
+    padding: 10px 20px;
+    background: linear-gradient(135deg, #409257, #0c1a10);    
+    border-radius: 4px;
+    color: white;
+    text-decoration: none;
+    transition: background-color 0.3s, box-shadow 0.3s; 
+}
+
+.example-section a:hover {
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+    background: linear-gradient(135deg, #0c1a10, #409257);    
+ 
+}
+
+.example-section a:active {
+    background: green;   
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+}
+
+/* Searched Country Information Styles */
+main {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-gap: 20px;
+    padding: 20px;
+}
+
+.country-info, .recipes, .additional-info, .saved-info {
+    background-color: #e7e5cd;
+    opacity: 0.9;
+    padding: 15px;
+    border-radius: 8px;
+}
+
+.grid-item {
+    margin-bottom: 10px;
+}
+
+.country-info .grid-item {
+    font-size: 18px;
+}
+
+ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+li {
+    margin-bottom: 10px;
+}
+
+.recipes h2,
+.additional-info h2,
+.saved-info h2 {
+   font-size: 20px;
+   font-weight: bold;
+}
+
+
+
+/* Save Place Button Styles */
+button.btn-warning:active,
+button.btn-warning.active {
+    background: yellow !important;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+}
+
+
+
+
+/* Media Query for Tablets */
+@media only screen and (max-width: 768px) {
+    .logo {
+        max-width: 40%; /* Adjust the max-width for tablets */
+    }
+}
+
+/* Media Query for Mobile Phones */
+@media only screen and (max-width: 480px) {
+    .logo {
+        max-width: 30%; 
+    }
+    .search-container {
+        margin-top: 10px; 
+        width: 80%;
+    }
+
+    .search-text {
+        font-size: 24px; 
+    }
+
+    .search-wrapper input {
+        width: 80%; 
+    }
+
+    .example-section a {
+        padding: 6px 12px; 
+    }
+
+    button {
+        padding: 8px;
+        height: 40px;
+        width: 120px;
+    }
+    button.btn-warning {
+        width: 140px;
+    }
+}
