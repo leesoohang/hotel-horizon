@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Countries</title>
+    <title>Hotel Horizon</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js"></script>
@@ -36,16 +36,7 @@
         </div>
     </header>
 
-    <section class="example-section">
-        <p>Recommendations:</p>
-        <a href="#" onclick="searchExample('Example 1')" class="btn btn-success">Example 1</a>
-        <a href="#" onclick="searchExample('Example 2')" class="btn btn-success">Example 2</a>
-        <a href="#" onclick="searchExample('Example 3')" class="btn btn-success">Example 3</a>
-        <a href="#" onclick="searchExample('Example 4')" class="btn btn-success">Example 4</a>
-        <a href="#" onclick="searchExample('Example 5')" class="btn btn-success">Example 5</a>
-    </section>
-
-
+    <!-- Main container box - BOX 1 -->
     <main class="container">
         <section class="country-info" id="countryInfo">
             <div class="country-name grid-item">Country Name: Placeholder</div>
@@ -53,22 +44,60 @@
             <div class="pictures grid-item">Pictures: Placeholder</div>
             <button class="btn btn-warning" onclick="saveToLocalStorage()">Save Place ⭐</button>
         </section>
-
-        <section class="recipes" id="recipes">
+        <!-- BOX 2 -->
+        <section class="hotels" id="hotels">
             <h2>List of hotels</h2>
-            <!-- Recipe content here -->
+            <!--Hotels content here -->
+            
         </section>
-
+        <!-- BOX 3 -->
         <section class="additional-info" id="additionalInfo">
             <h2>Additional Information</h2>
-            <!-- Additional information about the country here -->
+            <!-- Additional information about the hotels here -->
         </section>
-
+        <!-- BOX 4 -->
         <section class="saved-info" id="savedInfo">
             <h2>Saved Places of Interest</h2>
             <ul id="savedList"></ul>
         </section>
     </main>
+
+    <!-- Button to trigger the modal -->
+    <button type="button" class="btn btn-info" data-toggle="modal" data-target="#myModal">
+        Open Modal
+    </button>
+
+    <!-- Modal -->
+    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Modal Title</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <p>This is the modal content. Just another placeholder to be customized as needed! :D
+                        Potential uses: 
+                        <ul>
+                            <li>- Advanced Search Options</li>
+                            <li>- Hotel Details</li>
+                            <li>- Login/Signup</li>
+                            <li>- Booking Confirmation</li>
+                            <li>- Special Offers/Promotions</li>
+                            <li>- Feedback/Reviews</li>
+                        </ul>
+                    </p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <!-- Add additional buttons or actions here if needed -->
+                </div>
+            </div>
+        </div>
+    </div>
 
     <script src="script.js"></script>
 
