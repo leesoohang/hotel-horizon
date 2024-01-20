@@ -1,3 +1,4 @@
+let userInput = "Barcelona"
 // Fetch cordinates based on user Input
 function getCordinates(location, callback) {
 
@@ -26,8 +27,8 @@ function getCordinates(location, callback) {
 }
 
 // Fetch hotel based on cordinates retrieved from "getCordinates()"
-function getHotel() {
-    getCordinates("London", function(cordinates) {
+function getHotel(userInput) {
+    getCordinates(userInput, function(cordinates) {
         console.log("lat: " + cordinates.lat + " and long: " + cordinates.lon );
 
         let lat = cordinates.lat
@@ -61,13 +62,10 @@ function getHotel() {
         // Combine the base URL and query parameters
         const url = `${baseUrl}?${queryParamStrings.join('&')}`;
 
-        // Use the 'url' variable for your API request
-        console.log(url);
-
         const options = {
 	        method: 'GET',
 	        headers: {
-		        'X-RapidAPI-Key': '',
+		        'X-RapidAPI-Key': 'b5a9039af8mshf35a3ef3045004ep1efb1cjsndf46ef774554',
 		        'X-RapidAPI-Host': 'booking-com.p.rapidapi.com'
 	        }
         };
@@ -77,7 +75,7 @@ function getHotel() {
             .then(function(response) {
                 return response.json();
             })
-            .then(function(data) {
+            .then(async function(data) {
 
                 // pass to processHotels data.result as that's where all data is we need
                 let processedHotels = processHotels(data.result)
@@ -90,12 +88,45 @@ function getHotel() {
     })
 }
 
-function getHotelDetails(hotelId) {
+
+// Function to fetch description for each hotel
+function getHotelPhotos(hotelId) {
+
+    const url = `https://booking-com.p.rapidapi.com/v1/hotels/photos?hotel_id=${hotelId}&locale=en-gb`;
+    const options = {
+	    method: 'GET',
+	    headers: {
+		    'X-RapidAPI-Key': 'b5a9039af8mshf35a3ef3045004ep1efb1cjsndf46ef774554',
+		    'X-RapidAPI-Host': 'booking-com.p.rapidapi.com'
+	}
+};
+
+    return fetch(url, options)
+        .then(function(response) {
+            return response.json()
+        })
+        .then(function(data) {
+            // Map through the data and return array of pictures URL's
+            return data.map(function(picture) {
+                return {
+                    pictureUrl: picture.url_max
+                }
+            })
+        })
+        .catch(function(error) {
+            console.error("Error message: " + error);
+            // Return empty array in case of any errors to allow continous functioning
+            return [];
+        })
 
 }
+
+
 // Function to extract specific data for each hotel from the api response
 function processHotels(hotelsData) {
+
     return hotelsData.map(function(hotel) {
+        // Return an object containing processed data for each of the hotels
         return {
             hotelId: hotel.hotel_id,
             hotelLat: hotel.latitude,
@@ -114,4 +145,8 @@ function processHotels(hotelsData) {
     })
 }
 
+// getHotelPhotos("35352")
+//     .then(function(pictures) {
+//         console.log(pictures)
+//     })
 // getHotel();
