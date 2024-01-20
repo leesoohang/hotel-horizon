@@ -29,8 +29,7 @@ function getCordinates(location, callback) {
 // Fetch hotel based on cordinates retrieved from "getCordinates()"
 function getHotel(userInput) {
     getCordinates(userInput, function(cordinates) {
-        console.log("lat: " + cordinates.lat + " and long: " + cordinates.lon );
-
+       
         let lat = cordinates.lat
         let lon = cordinates.lon
 
@@ -79,6 +78,7 @@ function getHotel(userInput) {
 
                 // pass to processHotels data.result as that's where all data is we need
                 let processedHotels = processHotels(data.result)
+                updateDOMWithHotels(processedHotels);
                 console.log(processedHotels)
 
             })
@@ -149,4 +149,73 @@ function processHotels(hotelsData) {
 //     .then(function(pictures) {
 //         console.log(pictures)
 //     })
-// getHotel();
+getHotel();
+
+// Using jQuery to manipulate DOM
+function updateDOMWithHotels(hotelsData) {
+    let mainContainer = $(".container");
+
+    hotelsData.forEach(function(hotel) {
+
+        // Some of hotels don't have reviews, need to replace that if that's the case using ternary operator
+        let reviewScore = hotel.reviewScore ? `⭐${hotel.reviewScore} (${hotel.reviewScoreWord})` : "No score yet";
+
+        // Creating hotel card element with data retrieved from API
+        let hotelCard = 
+            `
+            <div class="card hotel" data-id=${hotel.hotelId} style="width: 18rem;">
+                <img class="card-img-top" src=${hotel.hotelPhoto} alt="Hotel picture">
+                <div class=card-body>
+                    <h5>${hotel.hotelName}</h5>
+                    <p classs="card-text">Adress: ${hotel.hotelAddressRoad}, <span> ${hotel.hotelAddressPostal}</span></p>
+                    <p class="card-text">Price: £${Math.round(hotel.hotelNightPrice)}</p>
+                    <p class="card-text">Review: ${reviewScore}</span></p>
+                </div>
+                <a class="btn btn-info" src="${hotel.bookingComLink}" target="_blank">Book Now</a>
+                <button class="btn btn-info getPhoto-btn">Photos</button>
+            </div>
+            `;
+
+        // Append card to main container in HTML
+        mainContainer.append(hotelCard);
+    });
+}
+
+$(".container").on("click", ".getPhoto-btn", function(event) {
+    // Use closest to get closest parent element with class .hotel and extract data attribute data-id
+    let hotelId = $(this).closest(".hotel").data("id")
+
+
+    getHotelPhotos(hotelId)
+        .then(function(photos) {
+
+            // Limit of photos to display to 10
+            let limitPhotos = photos.slice(0,10);
+
+            // Loop through the array received from API and create modal with photos of the hotel
+            let modalPictures = `
+            <div class="modal fade" id="photoModal" tabindex="-1" role="dialog" aria-labelledby="photoModalLabel" aria-hidden="true">
+                <div class="modal-dialog modal-lg" role="document"> <!-- 'modal-lg' for larger modal -->
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="photoModalLabel">Photos</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            ${limitPhotos.map(function(photo) {
+                                return `<img src="${photo.pictureUrl}" alt="Picture of hotel" class="img-fluid">`;
+                            }).join("")}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        `;
+            $('body').append(modalPictures);
+
+            $("#photoModal").modal("show");
+        })
+
+})
+

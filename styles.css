@@ -236,3 +236,11 @@ footer p {
         margin-right: 0; 
     }
 }
+
+/* Hidding components to work on js and jquery to display data for the hotels  */
+.country-info,
+.hotels,
+.additional-info,
+.saved-info {
+    display: none;
+}
