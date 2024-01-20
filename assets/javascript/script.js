@@ -145,10 +145,6 @@ function processHotels(hotelsData) {
     })
 }
 
-// getHotelPhotos("35352")
-//     .then(function(pictures) {
-//         console.log(pictures)
-//     })
 getHotel();
 
 // Using jQuery to manipulate DOM
@@ -182,6 +178,9 @@ function updateDOMWithHotels(hotelsData) {
 }
 
 $(".container").on("click", ".getPhoto-btn", function(event) {
+
+
+
     // Use closest to get closest parent element with class .hotel and extract data attribute data-id
     let hotelId = $(this).closest(".hotel").data("id")
 
@@ -192,18 +191,21 @@ $(".container").on("click", ".getPhoto-btn", function(event) {
             // Limit of photos to display to 10
             let limitPhotos = photos.slice(0,10);
 
+            // Remove previous modal added to the document
+            $("#photoModal").remove();
+            
             // Loop through the array received from API and create modal with photos of the hotel
             let modalPictures = `
             <div class="modal fade" id="photoModal" tabindex="-1" role="dialog" aria-labelledby="photoModalLabel" aria-hidden="true">
-                <div class="modal-dialog modal-lg" role="document"> <!-- 'modal-lg' for larger modal -->
-                    <div class="modal-content">
+                <div class="modal-dialog modal-dialog-custom" role="document">
+                    <div class="modal-content center">
                         <div class="modal-header">
                             <h5 class="modal-title" id="photoModalLabel">Photos</h5>
                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                 <span aria-hidden="true">&times;</span>
                             </button>
                         </div>
-                        <div class="modal-body">
+                        <div class="modal-body modal-body-gallery">
                             ${limitPhotos.map(function(photo) {
                                 return `<img src="${photo.pictureUrl}" alt="Picture of hotel" class="img-fluid">`;
                             }).join("")}

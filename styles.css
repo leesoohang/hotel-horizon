@@ -130,7 +130,7 @@ li {
     margin-bottom: 10px;
 }
 
-.hotels. h2,
+.hotels h2,
 .additional-info h2,
 .saved-info h2 {
    font-size: 20px;
@@ -142,6 +142,43 @@ button.btn-warning:active,
 button.btn-warning.active {
     background: yellow !important;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+}
+
+/* Main styles */
+
+/* Hidding components to work on js and jquery to display data for the hotels  */
+.country-info,
+.hotels,
+.additional-info,
+.saved-info {
+    display: none;
+}
+
+/* Photo Modal styling */
+
+.modal-dialog {
+    max-height: 80vh;
+    display: flex;
+    flex-direction: column;
+    margin: 0 auto;
+    min-width: 70vw;
+    margin-top: 40px;
+}
+
+
+.modal-body-gallery {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    overflow-y: auto;
+    max-height: 80vh;
+    
+}
+
+.modal-body-gallery img {
+    flex: 0 1 auto;
+    max-height: 300px;
+    object-fit: cover;
 }
 
 /* Footer Styles */
@@ -237,10 +274,3 @@ footer p {
     }
 }
 
-/* Hidding components to work on js and jquery to display data for the hotels  */
-.country-info,
-.hotels,
-.additional-info,
-.saved-info {
-    display: none;
-}
