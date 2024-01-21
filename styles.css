@@ -99,12 +99,7 @@ button:active {
 }
 
 /* Searched Country Information Styles - BOXES */
-main {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    grid-gap: 20px;
-    padding: 20px;
-}
+
 
 .country-info, .hotels, .additional-info, .saved-info {
     opacity: 0.9;
@@ -146,6 +141,11 @@ button.btn-warning.active {
 
 
 /* ------------------- Main styles ------------------- */
+main {
+    grid-gap: 20px;
+    padding: 20px;
+}
+
 
 /* Hidding components to work on js and jquery to display data for the hotels  */
 .country-info,
@@ -155,8 +155,17 @@ button.btn-warning.active {
     display: none;
 }
 
-/* Photo Modal styling */
+/* ------------------- Hotels Section ------------------- */
 
+.card-hotel {
+    width: 50vw;
+    height: auto;
+}
+
+
+
+
+/* Photo Modal styling */
 .modal-dialog {
     max-height: 80vh;
     display: flex;
