@@ -1,4 +1,9 @@
 let userInput = "Barcelona"
+
+
+
+// --------------------------  GeoLocation API section --------------------------
+
 // Fetch cordinates based on user Input
 function getCordinates(location, callback) {
 
@@ -24,7 +29,12 @@ function getCordinates(location, callback) {
             }
             callback(cordinates)
         })
+        .catch(function(error) {
+            console.error("Error message: " + error);
+        })
 }
+
+// --------------------------  Booking com API section --------------------------
 
 // Fetch hotel based on cordinates retrieved from "getCordinates()"
 function getHotel(userInput) {
@@ -145,7 +155,109 @@ function processHotels(hotelsData) {
     })
 }
 
-getHotel();
+
+// --------------------------  Google API section --------------------------
+
+
+let service; // Google Places service
+let infowindow; // Info window for displaying place details
+let markers = []; // Array to hold map markers
+
+// Function to initialize the map
+function initMap(query) {
+    // Check if query is a valid string also need to set up default as script in html
+    // has callback function initMap 
+    if (typeof query !== 'string') {
+        query = "London" // Default query to "London" if no valid string is provided
+    }
+
+    const defaultPlace = new google.maps.LatLng(51.509865, -0.118092); // Default to London Covent Garden
+
+    // Clear any existing markers
+    markers.forEach(marker => marker.setMap(null));
+    markers = [];
+    
+
+    // Initialize info window
+    infowindow = new google.maps.InfoWindow();
+
+    // Initialize map with default center and zoom level
+    map = new google.maps.Map(document.getElementById("mapContainer"), {
+        center: defaultPlace,
+        zoom: 17,
+    });
+
+    // Create a request object for the Places API
+    const request = {
+        query: query,
+        fields: ["name", "geometry"],
+    };
+
+    // Initialize Places service
+    service = new google.maps.places.PlacesService(map);
+
+    // Use the Places service to find a place from the query
+    service.findPlaceFromQuery(request, (results, status) => {
+        // If the query was successful and returned results, create a marker and center the map on the first result
+        if (status === google.maps.places.PlacesServiceStatus.OK && results) {
+            createMarker(results[0]);
+            map.setCenter(results[0].geometry.location);
+        }
+    });
+}
+
+// Function to create a marker for a place
+function createMarker(place) {
+    // If the place doesn't have a valid geometry or location, return without creating a marker
+    if (!place.geometry || !place.geometry.location) return;
+
+    // Create a new marker at the place's location
+    const marker = new google.maps.Marker({
+        map,
+        position: place.geometry.location,
+    });
+
+    // Add the new marker to the markers array
+    markers.push(marker);
+
+    // Add a click event listener to the marker to open the info window with the place's name
+    google.maps.event.addListener(marker, "click", () => {
+        infowindow.setContent(place.name || "");
+        infowindow.open(map, marker);
+    });
+}
+
+// Function to update the map with a new query
+function updateMap(query) {
+
+    // Clear existing markers
+    markers.forEach(marker => marker.setMap(null));
+    markers = [];
+
+    // Create a new request object for the Places API
+    const request = {
+        query: query,
+        fields: ["name", "geometry"],
+    };
+
+    // Use the Places service to find a new place from the query
+    service.findPlaceFromQuery(request, (results, status) => {
+        // If the query was successful and returned results, create a marker and center the map on the first result
+        if (status === google.maps.places.PlacesServiceStatus.OK && results) {
+            createMarker(results[0]);
+            map.setCenter(results[0].geometry.location);
+        }
+    });
+}
+
+// Event handler for when the map modal is shown
+$('#mapModal').on('shown.bs.modal', function () {
+    // Update the map with a new query when the modal is shown
+    updateMap("The SoMa Furnished Residences", 43.2489910345541, -79.8450857312828);
+});
+
+
+// --------------------------  DOM Manipulation section --------------------------
 
 // Using jQuery to manipulate DOM
 function updateDOMWithHotels(hotelsData) {
@@ -169,6 +281,7 @@ function updateDOMWithHotels(hotelsData) {
                 </div>
                 <a class="btn btn-info" src="${hotel.bookingComLink}" target="_blank">Book Now</a>
                 <button class="btn btn-info getPhoto-btn">Photos</button>
+                <button class="btn btn-info getMap>View on Map</button>
             </div>
             `;
 
@@ -177,13 +290,10 @@ function updateDOMWithHotels(hotelsData) {
     });
 }
 
-$(".container").on("click", ".getPhoto-btn", function(event) {
-
-
+$(".container").on("click", ".getPhoto-btn", function() {
 
     // Use closest to get closest parent element with class .hotel and extract data attribute data-id
     let hotelId = $(this).closest(".hotel").data("id")
-
 
     getHotelPhotos(hotelId)
         .then(function(photos) {
@@ -193,7 +303,7 @@ $(".container").on("click", ".getPhoto-btn", function(event) {
 
             // Remove previous modal added to the document
             $("#photoModal").remove();
-            
+
             // Loop through the array received from API and create modal with photos of the hotel
             let modalPictures = `
             <div class="modal fade" id="photoModal" tabindex="-1" role="dialog" aria-labelledby="photoModalLabel" aria-hidden="true">
@@ -218,6 +328,8 @@ $(".container").on("click", ".getPhoto-btn", function(event) {
 
             $("#photoModal").modal("show");
         })
+}
+)
 
-})
 
+getHotel()

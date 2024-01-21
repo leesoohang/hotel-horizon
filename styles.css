@@ -144,7 +144,8 @@ button.btn-warning.active {
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
 }
 
-/* Main styles */
+
+/* ------------------- Main styles ------------------- */
 
 /* Hidding components to work on js and jquery to display data for the hotels  */
 .country-info,
@@ -274,3 +275,8 @@ footer p {
     }
 }
 
+/* Maps  */
+
+#map {
+    height: 50%;
+}
