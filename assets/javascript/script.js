@@ -437,4 +437,7 @@ $(function() {
 // Please comment out again when you don't need it anymore just to save my API key :)
 
 // Uncomment this to make APi call for hotels display if needed
-// getHotel("London")
+getHotel("London")
+
+
+
