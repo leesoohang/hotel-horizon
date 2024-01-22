@@ -1,9 +1,10 @@
-let userInput = "Barcelona"
+// --------------------------  GeoLocation API section --------------------------
+
 // Fetch cordinates based on user Input
-function getCordinates(location, callback) {
+function getCordinates(userInput, callback) {
 
 
-    const url = `https://forward-reverse-geocoding.p.rapidapi.com/v1/search?q=${location}&accept-language=en&polygon_threshold=0.0`;
+    const url = `https://forward-reverse-geocoding.p.rapidapi.com/v1/search?q=${userInput}&accept-language=en&polygon_threshold=0.0`;
     const options = {
         method: 'GET',
         headers: {
@@ -17,14 +18,19 @@ function getCordinates(location, callback) {
             return response.json()
         })
         .then(function(data) {
-            console.log(data)
             let cordinates = {
                 lat: data[0].lat,
                 lon: data[0].lon
             }
+            console.log(cordinates)
             callback(cordinates)
         })
+        .catch(function(error) {
+            console.error("Error message: " + error);
+        })
 }
+
+// --------------------------  Booking com API section --------------------------
 
 // Fetch hotel based on cordinates retrieved from "getCordinates()"
 function getHotel(userInput) {
@@ -79,7 +85,6 @@ function getHotel(userInput) {
                 // pass to processHotels data.result as that's where all data is we need
                 let processedHotels = processHotels(data.result)
                 updateDOMWithHotels(processedHotels);
-                console.log(processedHotels)
 
             })
             .catch(function(error) {
@@ -126,6 +131,7 @@ function getHotelPhotos(hotelId) {
 function processHotels(hotelsData) {
 
     return hotelsData.map(function(hotel) {
+        
         // Return an object containing processed data for each of the hotels
         return {
             hotelId: hotel.hotel_id,
@@ -145,45 +151,223 @@ function processHotels(hotelsData) {
     })
 }
 
-getHotel();
+
+// --------------------------  Google API section --------------------------
+
+
+let service; // Google Places service
+let infowindow; // Info window for displaying place details
+let hotelMarkers = []; // Array to hold map markers
+let restaurantMarkers = []; // Array to hold restaurant markers
+
+// Function to initialize the map
+function initMap(query) {
+    // Check if query is a valid string also need to set up default as script in html
+    // has callback function initMap 
+    if (typeof query !== 'string') {
+        query = "London" // Default query to "London" if no valid string is provided
+    }
+
+    const defaultPlace = new google.maps.LatLng(51.509865, -0.118092); // Default to London Covent Garden
+
+    // Clear any existing markers
+    hotelMarkers.forEach(marker => marker.setMap(null));
+    hotelMarkers = [];
+    
+
+    // Initialize info window
+    infowindow = new google.maps.InfoWindow();
+
+    // Initialize map with default center and zoom level
+    map = new google.maps.Map(document.getElementById("mapContainer"), {
+        center: defaultPlace,
+        zoom: 17,
+    });
+
+    // Create a request object for the Places API
+    const request = {
+        query: query,
+        fields: ["name", "geometry"],
+    };
+
+    // Initialize Places service
+    service = new google.maps.places.PlacesService(map);
+
+    // Use the Places service to find a place from the query
+    service.findPlaceFromQuery(request, (results, status) => {
+        // If the query was successful and returned results, create a marker and center the map on the first result
+        if (status === google.maps.places.PlacesServiceStatus.OK && results) {
+            createMarker(results[0]);
+            map.setCenter(results[0].geometry.location);
+        }
+    });
+}
+
+// Function to create a marker for a place
+function createMarker(place) {
+    // If the place doesn't have a valid geometry or location, return without creating a marker
+    if (!place.geometry || !place.geometry.location) return;
+
+    // Create a new marker at the place's location
+    const marker = new google.maps.Marker({
+        map,
+        position: place.geometry.location,
+        label: "Your Hotel",
+    });
+
+    // Add the new marker to the markers array
+    hotelMarkers.push(marker);
+
+    // Add a click event listener to the marker to open the info window with the place's name
+    google.maps.event.addListener(marker, "click", () => {
+        infowindow.setContent(place.name || "");
+        infowindow.open(map, marker);
+    });
+}
+
+// Updating map using a adress
+function updateMapWithAddress(address) {
+    
+    const geocoder = new google.maps.Geocoder();
+
+    geocoder.geocode({ 'address': address }, function(results, status) {
+        if (status === google.maps.GeocoderStatus.OK) {
+            map.setCenter(results[0].geometry.location);
+
+            // Clear existing markers
+            hotelMarkers.forEach(marker => marker.setMap(null));
+            hotelMarkers = [];
+
+            const marker = new google.maps.Marker({
+                map,
+                position: results[0].geometry.location,
+            });
+
+            hotelMarkers.push(marker);
+        } else {
+            console.error('Geocode was not successful for the following reason: ' + status);
+        }
+    });
+    
+}
+
+function updateMapWithCoordinates(lat, lon) {
+    
+    const location = new google.maps.LatLng(lat, lon);
+    map.setCenter(location);
+
+    // Clear existing markers
+    hotelMarkers.forEach(marker => marker.setMap(null));
+    hotelMarkers = [];
+
+    // Set the center of the map
+    map.setCenter(location);
+
+    // Add a marker at the new location
+    const marker = new google.maps.Marker({
+        map,
+        position: location,
+        label: "Your Hotel",
+    });
+
+    hotelMarkers.push(marker);
+}
+
+
+// Find Nearby Restruants
+function findNearbyRestaurants(location) {
+    const request = {
+        location: location,
+        radius: '500', // Search within a 500m radius
+        type: ['restaurant'] // Search for restaurants
+    };
+
+    service.nearbySearch(request, (results, status) => {
+        if (status === google.maps.places.PlacesServiceStatus.OK) {
+            // Clear existing markers
+            restaurantMarkers.forEach(marker => marker.setMap(null));
+            restaurantMarkers = [];
+
+            results.forEach(place => {
+                if (!place.geometry || !place.geometry.location) return;
+
+                const marker = new google.maps.Marker({
+                    map,
+                    position: place.geometry.location,
+                    icon: "https://maps.google.com/mapfiles/kml/pal2/icon36.png",
+                });
+
+                restaurantMarkers.push(marker);
+
+                // Optionally, add info windows for each restaurant
+                google.maps.event.addListener(marker, 'click', () => {
+                    infowindow.setContent(place.name || '');
+                    infowindow.open(map, marker);
+                });
+            });
+        }
+    });
+}
+
+
+
+// --------------------------  DOM Manipulation section --------------------------
 
 // Using jQuery to manipulate DOM
 function updateDOMWithHotels(hotelsData) {
-    let mainContainer = $(".container");
 
-    hotelsData.forEach(function(hotel) {
+    
+    let hotelsContainer = $(".hotels-container");
+    let searchResultsText = $("<span>").addClass(".Search-results-text")
+    // Clears any previous search
+    hotelsContainer.empty();
 
+    searchResultsText.text(`(Place holder for userSearch Input): ${hotelsData.length} hotels found`)
+    hotelsContainer.append(searchResultsText);
+    console.log(hotelsData);
+
+    hotelsData.forEach( function(hotel) {
+       
         // Some of hotels don't have reviews, need to replace that if that's the case using ternary operator
         let reviewScore = hotel.reviewScore ? `⭐${hotel.reviewScore} (${hotel.reviewScoreWord})` : "No score yet";
 
         // Creating hotel card element with data retrieved from API
         let hotelCard = 
             `
-            <div class="card hotel" data-id=${hotel.hotelId} style="width: 18rem;">
-                <img class="card-img-top" src=${hotel.hotelPhoto} alt="Hotel picture">
-                <div class=card-body>
-                    <h5>${hotel.hotelName}</h5>
-                    <p classs="card-text">Adress: ${hotel.hotelAddressRoad}, <span> ${hotel.hotelAddressPostal}</span></p>
-                    <p class="card-text">Price: £${Math.round(hotel.hotelNightPrice)}</p>
-                    <p class="card-text">Review: ${reviewScore}</span></p>
+            <div class="card-hotel" data-id=${hotel.hotelId}>
+                <div class="card-image">
+                    <img class="card-img-top" src=${hotel.hotelPhoto} alt="Hotel picture">
                 </div>
-                <a class="btn btn-info" src="${hotel.bookingComLink}" target="_blank">Book Now</a>
-                <button class="btn btn-info getPhoto-btn">Photos</button>
+                <div class="card-content">
+                    <div class="card-body">
+                        <h5>${hotel.hotelName}</h5>
+                        <p class="card-text">Address: ${hotel.hotelAddressRoad}, <span> ${hotel.hotelAddressPostal}</span></p>
+                        <p class="card-text">Price: £${Math.round(hotel.hotelNightPrice)}</p>
+                        <p class="card-text">${reviewScore}</span></p>
+                    </div>
+                    <div class="card-footer">
+                        <a class="btn btn-info" href="${hotel.bookingComLink}" target="_blank">Book Now</a>
+                        <button class="btn btn-info getPhoto-btn">Photos</button>
+                        <button type="button" class="btn btn-info open-map" data-toggle="modal" data-target="#mapModal"
+                                data-name=${hotel.hotelName} data-lat="${hotel.hotelLat}" data-lon="${hotel.hotelLon}"
+                                data-adress="${hotel.hotelAddressRoad}, ${hotel.hotelAddressPostal}">
+                            Show on Map
+                        </button>
+                        <button class="btn btn-info getRestaurant" data-target="#mapModal" data-lat="${hotel.hotelLat}" data-lon="${hotel.hotelLon}">Find nearby restaurants</button>
+                    </div>
+                </div>
             </div>
             `;
 
         // Append card to main container in HTML
-        mainContainer.append(hotelCard);
+        hotelsContainer.append(hotelCard);
     });
 }
 
-$(".container").on("click", ".getPhoto-btn", function(event) {
-
-
+$(".container").on("click", ".getPhoto-btn", function() {
 
     // Use closest to get closest parent element with class .hotel and extract data attribute data-id
-    let hotelId = $(this).closest(".hotel").data("id")
-
+    let hotelId = $(this).closest(".card-hotel").data("id")
 
     getHotelPhotos(hotelId)
         .then(function(photos) {
@@ -193,7 +377,7 @@ $(".container").on("click", ".getPhoto-btn", function(event) {
 
             // Remove previous modal added to the document
             $("#photoModal").remove();
-            
+
             // Loop through the array received from API and create modal with photos of the hotel
             let modalPictures = `
             <div class="modal fade" id="photoModal" tabindex="-1" role="dialog" aria-labelledby="photoModalLabel" aria-hidden="true">
@@ -218,6 +402,39 @@ $(".container").on("click", ".getPhoto-btn", function(event) {
 
             $("#photoModal").modal("show");
         })
+}
+)
 
+// Event handler for "view on map" button click
+$(function() {
+    
+    // Update the map with the address of the selected hotel when the "view on map" button is clicked
+    $(".hotels-container").on("click", ".open-map", function() {
+        let hotelName = $(this).data("name");
+        let hotelLat = $(this).data("lat");
+        let hotelLon = $(this).data("lon");
+        let hotelAddress = $(this).data("address")
+
+        updateMapWithAddress(hotelAddress);
+    });
+
+    // Update the map and display nearby restaurants when the "show restaurants" button is clicked
+    $(".hotels-container").on("click", ".getRestaurant", function() {
+        const lat = parseFloat($(this).data("lat"));
+        const lon = parseFloat($(this).data("lon"));
+    
+        // If the coordinates are in the correct format, update the map and find nearby restaurants
+        if (!isNaN(lat) && !isNaN(lon)) {
+            updateMapWithCoordinates(lat, lon);
+            findNearbyRestaurants(new google.maps.LatLng(lat, lon));
+            $('#mapModal').modal('show');
+        } else {
+            console.error("Invalid hotel position");
+        }
+    });
 })
 
+// Please comment out again when you don't need it anymore just to save my API key :)
+
+// Uncomment this to make APi call for hotels display if needed
+// getHotel("London")
