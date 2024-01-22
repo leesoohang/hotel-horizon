@@ -1,3 +1,6 @@
+let savedHotelData = [];
+
+
 // --------------------------  GeoLocation API section --------------------------
 
 // Fetch cordinates based on user Input
@@ -84,6 +87,9 @@ function getHotel(userInput) {
 
                 // pass to processHotels data.result as that's where all data is we need
                 let processedHotels = processHotels(data.result)
+                // Save all the data 
+                saveHotelData(processedHotels)
+
                 updateDOMWithHotels(processedHotels);
 
             })
@@ -314,19 +320,71 @@ function findNearbyRestaurants(location) {
 // --------------------------  DOM Manipulation section --------------------------
 
 // Using jQuery to manipulate DOM
-function updateDOMWithHotels(hotelsData) {
+// function updateDOMWithHotels(hotelsData) {
 
     
+//     let hotelsContainer = $(".hotels-container");
+//     let searchResultsText = $("<span>").addClass(".Search-results-text")
+//     // Clears any previous search
+//     hotelsContainer.empty();
+
+//     searchResultsText.text(`(Place holder for userSearch Input): ${hotelsData.length} hotels found`)
+//     hotelsContainer.append(searchResultsText);
+//     console.log(hotelsData);
+
+//     hotelsData.forEach( function(hotel) {
+       
+//         // Some of hotels don't have reviews, need to replace that if that's the case using ternary operator
+//         let reviewScore = hotel.reviewScore ? `⭐${hotel.reviewScore} (${hotel.reviewScoreWord})` : "No score yet";
+
+//         // Creating hotel card element with data retrieved from API
+//         let hotelCard = 
+//             `
+//             <div class="card-hotel" data-id=${hotel.hotelId}>
+//                 <div class="card-image">
+//                     <img class="card-img-top" src=${hotel.hotelPhoto} alt="Hotel picture">
+//                 </div>
+//                 <div class="card-content">
+//                     <div class="card-body">
+//                         <h5>${hotel.hotelName}</h5>
+//                         <p class="card-text">Address: ${hotel.hotelAddressRoad}, <span> ${hotel.hotelAddressPostal}</span></p>
+//                         <p class="card-text">Price: £${Math.round(hotel.hotelNightPrice)}</p>
+//                         <p class="card-text">${reviewScore}</span></p>
+//                     </div>
+//                     <div class="card-footer">
+//                         <a class="btn btn-info" href="${hotel.bookingComLink}" target="_blank">Book Now</a>
+//                         <button class="btn btn-info getPhoto-btn">Photos</button>
+//                         <button type="button" class="btn btn-info open-map" data-toggle="modal" data-target="#mapModal"
+//                                 data-name=${hotel.hotelName} data-lat="${hotel.hotelLat}" data-lon="${hotel.hotelLon}"
+//                                 data-adress="${hotel.hotelAddressRoad}, ${hotel.hotelAddressPostal}">
+//                             Show on Map
+//                         </button>
+//                         <button class="btn btn-info getRestaurant" data-target="#mapModal" data-lat="${hotel.hotelLat}" data-lon="${hotel.hotelLon}">Find nearby restaurants</button>
+//                     </div>
+//                 </div>
+//             </div>
+//             `;
+
+//         // Append card to main container in HTML
+//         hotelsContainer.append(hotelCard);
+//     });
+// }
+//  ------------------    This testing function is for layout only so no need to call APi ------------
+
+
+
+function updateDOMWithHotels(hotels) {
+
     let hotelsContainer = $(".hotels-container");
     let searchResultsText = $("<span>").addClass(".Search-results-text")
     // Clears any previous search
     hotelsContainer.empty();
 
-    searchResultsText.text(`(Place holder for userSearch Input): ${hotelsData.length} hotels found`)
+    searchResultsText.text(`(Place holder for userSearch Input): ${hotels.length} hotels found`)
     hotelsContainer.append(searchResultsText);
-    console.log(hotelsData);
+    console.log(hotels);
 
-    hotelsData.forEach( function(hotel) {
+    hotels.forEach( function(hotel) {
        
         // Some of hotels don't have reviews, need to replace that if that's the case using ternary operator
         let reviewScore = hotel.reviewScore ? `⭐${hotel.reviewScore} (${hotel.reviewScoreWord})` : "No score yet";
@@ -363,6 +421,11 @@ function updateDOMWithHotels(hotelsData) {
         hotelsContainer.append(hotelCard);
     });
 }
+updateDOMWithHotels(hotels)
+
+
+
+// ----------------- End of Testing Function ---------------------------------------------------------
 
 $(".container").on("click", ".getPhoto-btn", function() {
 
@@ -437,7 +500,13 @@ $(function() {
 // Please comment out again when you don't need it anymore just to save my API key :)
 
 // Uncomment this to make APi call for hotels display if needed
-getHotel("London")
+// getHotel("London")
 
 
+function saveHotelData(processedHotels) {
 
+    // Add the new data to the existing data
+    processedHotels.forEach(function(hotel) {
+        savedHotelData.push(hotel);
+    });
+}
