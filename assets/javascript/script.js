@@ -597,4 +597,4 @@ $(function() {
 })
 
 
-getHotel("London");
+// getHotel("London");

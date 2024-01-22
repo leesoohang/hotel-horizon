@@ -158,6 +158,43 @@ main {
 }
 
 
+/* --------------------  Aside Section ---------------------- */
+.favourite-card {
+    display: flex;
+    width: 250px;
+    height: 150px;
+    padding: 10px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.4);
+    margin-bottom: 10px;
+}
+
+.favourite-image {
+    flex: 1;
+    margin-right: 10px;
+}
+
+.favourite-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; 
+}
+
+.favourite-text {
+    flex: 1;
+    display: flex; 
+    flex-direction: column; 
+    justify-content: center; 
+}
+
+.favourite-text p {
+    margin: 0;
+    font-size: 0.9em;
+}
+
+.fav-price-text {
+    font-size: 0.8em;
+    color: #888;
+}
 
 
 /* Photo Modal styling */
