@@ -320,19 +320,71 @@ function findNearbyRestaurants(location) {
 // --------------------------  DOM Manipulation section --------------------------
 
 // Using jQuery to manipulate DOM
-// function updateDOMWithHotels(hotelsData) {
+function updateDOMWithHotels(hotelsData) {
 
     
+    let hotelsContainer = $(".hotels-container");
+    let searchResultsText = $("<span>").addClass(".Search-results-text")
+    // Clears any previous search
+    hotelsContainer.empty();
+
+    searchResultsText.text(`(Place holder for userSearch Input): ${hotelsData.length} hotels found`)
+    hotelsContainer.append(searchResultsText);
+    console.log(hotelsData);
+
+    hotelsData.forEach( function(hotel) {
+       
+        // Some of hotels don't have reviews, need to replace that if that's the case using ternary operator
+        let reviewScore = hotel.reviewScore ? `⭐${hotel.reviewScore} (${hotel.reviewScoreWord})` : "No score yet";
+
+        // Creating hotel card element with data retrieved from API
+        let hotelCard = 
+             `
+              <div class="card-hotel" data-id=${hotel.hotelId}>
+                   <div class="card-image">
+                       <img class="card-img-top" src=${hotel.hotelPhoto} alt="Hotel picture">
+                   </div>
+                   <div class="card-content">
+                       <div class="card-body">
+                           <h5>${hotel.hotelName}</h5>
+                           <p class="card-text">Address: ${hotel.hotelAddressRoad}, <span> ${hotel.hotelAddressPostal}</span></p>
+                           <p class="card-text">Price: £${Math.round(hotel.hotelNightPrice)}</p>
+                           <p class="card-text">${reviewScore}</span></p>
+                       </div>
+                       <div class="card-footer">
+                           <a class="btn btn-info" href="${hotel.bookingComLink}" target="_blank">Book Now</a>
+                           <button class="btn btn-info getPhoto-btn">Photos</button>
+                           <button type="button" class="btn btn-info open-map" data-toggle="modal" data-target="#mapModal"
+                                   data-name=${hotel.hotelName} data-lat="${hotel.hotelLat}" data-lon="${hotel.hotelLon}"
+                                  data-address="${hotel.hotelAddressRoad}, ${hotel.hotelAddressPostal}">
+                               Show on Map
+                           </button>
+                           <button class="btn btn-info getRestaurant" data-target="#mapModal" data-lat="${hotel.hotelLat}" data-lon="${hotel.hotelLon}">Find nearby restaurants</button>
+                           <button class="btn btn-info saveFavourite">Save</button>
+                       </div>
+                   </div>
+               </div>
+             `;
+
+        // Append card to main container in HTML
+        hotelsContainer.append(hotelCard);
+    });
+}
+//  ------------------    This testing function is for layout only so no need to call APi ------------
+
+
+
+// function updateDOMWithHotels(hotels) {
+
 //     let hotelsContainer = $(".hotels-container");
 //     let searchResultsText = $("<span>").addClass(".Search-results-text")
 //     // Clears any previous search
 //     hotelsContainer.empty();
 
-//     searchResultsText.text(`(Place holder for userSearch Input): ${hotelsData.length} hotels found`)
+//     searchResultsText.text(`(Place holder for userSearch Input): ${hotels.length} hotels found`)
 //     hotelsContainer.append(searchResultsText);
-//     console.log(hotelsData);
 
-//     hotelsData.forEach( function(hotel) {
+//     hotels.forEach( function(hotel) {
        
 //         // Some of hotels don't have reviews, need to replace that if that's the case using ternary operator
 //         let reviewScore = hotel.reviewScore ? `⭐${hotel.reviewScore} (${hotel.reviewScoreWord})` : "No score yet";
@@ -360,6 +412,7 @@ function findNearbyRestaurants(location) {
 //                             Show on Map
 //                         </button>
 //                         <button class="btn btn-info getRestaurant" data-target="#mapModal" data-lat="${hotel.hotelLat}" data-lon="${hotel.hotelLon}">Find nearby restaurants</button>
+//                         <button class="btn btn-info saveFavourite">Save</button>
 //                     </div>
 //                 </div>
 //             </div>
@@ -369,63 +422,99 @@ function findNearbyRestaurants(location) {
 //         hotelsContainer.append(hotelCard);
 //     });
 // }
-//  ------------------    This testing function is for layout only so no need to call APi ------------
-
-
-
-function updateDOMWithHotels(hotels) {
-
-    let hotelsContainer = $(".hotels-container");
-    let searchResultsText = $("<span>").addClass(".Search-results-text")
-    // Clears any previous search
-    hotelsContainer.empty();
-
-    searchResultsText.text(`(Place holder for userSearch Input): ${hotels.length} hotels found`)
-    hotelsContainer.append(searchResultsText);
-    console.log(hotels);
-
-    hotels.forEach( function(hotel) {
-       
-        // Some of hotels don't have reviews, need to replace that if that's the case using ternary operator
-        let reviewScore = hotel.reviewScore ? `⭐${hotel.reviewScore} (${hotel.reviewScoreWord})` : "No score yet";
-
-        // Creating hotel card element with data retrieved from API
-        let hotelCard = 
-            `
-            <div class="card-hotel" data-id=${hotel.hotelId}>
-                <div class="card-image">
-                    <img class="card-img-top" src=${hotel.hotelPhoto} alt="Hotel picture">
-                </div>
-                <div class="card-content">
-                    <div class="card-body">
-                        <h5>${hotel.hotelName}</h5>
-                        <p class="card-text">Address: ${hotel.hotelAddressRoad}, <span> ${hotel.hotelAddressPostal}</span></p>
-                        <p class="card-text">Price: £${Math.round(hotel.hotelNightPrice)}</p>
-                        <p class="card-text">${reviewScore}</span></p>
-                    </div>
-                    <div class="card-footer">
-                        <a class="btn btn-info" href="${hotel.bookingComLink}" target="_blank">Book Now</a>
-                        <button class="btn btn-info getPhoto-btn">Photos</button>
-                        <button type="button" class="btn btn-info open-map" data-toggle="modal" data-target="#mapModal"
-                                data-name=${hotel.hotelName} data-lat="${hotel.hotelLat}" data-lon="${hotel.hotelLon}"
-                                data-adress="${hotel.hotelAddressRoad}, ${hotel.hotelAddressPostal}">
-                            Show on Map
-                        </button>
-                        <button class="btn btn-info getRestaurant" data-target="#mapModal" data-lat="${hotel.hotelLat}" data-lon="${hotel.hotelLon}">Find nearby restaurants</button>
-                    </div>
-                </div>
-            </div>
-            `;
-
-        // Append card to main container in HTML
-        hotelsContainer.append(hotelCard);
-    });
-}
-updateDOMWithHotels(hotels)
+// updateDOMWithHotels(hotels)
 
 
 
 // ----------------- End of Testing Function ---------------------------------------------------------
+
+// Function to save all data retrieved from fetch to global variable
+function saveHotelData(processedHotels) {
+    processedHotels.forEach(function(hotel) {
+        savedHotelData.push(hotel);
+    });
+}
+
+// Function to add hotels to favourites
+function saveToFavourites(event) {
+
+    // Get data-id attribute from hotel that has been clicked to add to favourite
+    let dataId = $(event.target).closest(".card-hotel").data("id");
+    console.log(dataId)
+    
+
+    // Find matching hotelId with the one that has been clicked
+    let targetHotel = savedHotelData.find(function(element) {
+        return element.hotelId == dataId;
+    })
+
+    let favouriteContainer = $(".favourite-container");
+
+    let favouriteHotel = 
+    `
+        <div class="favourite-card">
+            <div class=favourite-image>
+                <img src="${targetHotel.hotelPhoto}">
+            </div>
+            <div class="favourite-text">
+                <p>${targetHotel.hotelName}</p>
+                <p>⭐${targetHotel.reviewScore}<span class="fav-price-text">£${Math.round(targetHotel.hotelNightPrice)}</span></p>
+            </div>
+        </div>
+    `
+    favouriteContainer.append(favouriteHotel);
+    
+    // Fetch the saved hotels from localStorage
+    let savedHotels = localStorage.getItem("savedHotels");
+
+    // Parse the saved hotels or initialize an empty array if none exist
+    savedHotels = savedHotels ? JSON.parse(savedHotels) : [];
+
+    // Check if hotel is already added to favourites
+    let isAlreadySaved = savedHotels.some(function(hotel) {
+       return hotel.hotelId === targetHotel.hotelId
+    })
+
+    if (!isAlreadySaved) {
+        // Add the new hotel to the array of saved hotels
+        savedHotels.push(targetHotel);
+        // Update the localStorage with the new list of saved hotels
+        localStorage.setItem("savedHotels", JSON.stringify(savedHotels));
+    }
+
+
+    
+}
+
+function fetchSavedLocalStorage() {
+    let favouriteContainer = $(".favourite-container");
+    let savedHotels = localStorage.getItem("savedHotels");
+    
+    hotelData = JSON.parse(savedHotels)
+    
+
+    if (savedHotels) {
+       
+        hotelData.forEach(function(element) {
+            let favouriteHotel = 
+            `
+                <div class="favourite-card">
+                    <div class=favourite-image>
+                        <img src="${element.hotelPhoto}">
+                    </div>
+                    <div class="favourite-text">
+                        <p>${element.hotelName}</p>
+                        <p>⭐${element.reviewScore}<span class="fav-price-text">£${Math.round(element.hotelNightPrice)}</span></p>
+                    </div>
+                </div>
+            `
+        favouriteContainer.append(favouriteHotel);
+        })
+    } else {
+        return;
+    }
+    
+}
 
 $(".container").on("click", ".getPhoto-btn", function() {
 
@@ -468,8 +557,13 @@ $(".container").on("click", ".getPhoto-btn", function() {
 }
 )
 
-// Event handler for "view on map" button click
+
+
+
+
+// Event handlers for buttons click
 $(function() {
+    fetchSavedLocalStorage();
     
     // Update the map with the address of the selected hotel when the "view on map" button is clicked
     $(".hotels-container").on("click", ".open-map", function() {
@@ -495,18 +589,12 @@ $(function() {
             console.error("Invalid hotel position");
         }
     });
+
+    $(".hotels-container").on("click", ".saveFavourite", function(event) {
+        console.log("Event click is working")
+        saveToFavourites(event);
+    })
 })
 
-// Please comment out again when you don't need it anymore just to save my API key :)
 
-// Uncomment this to make APi call for hotels display if needed
-// getHotel("London")
-
-
-function saveHotelData(processedHotels) {
-
-    // Add the new data to the existing data
-    processedHotels.forEach(function(hotel) {
-        savedHotelData.push(hotel);
-    });
-}
+getHotel("London");
