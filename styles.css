@@ -147,19 +147,14 @@ main {
 }
 
 
-/* Hidding components to work on js and jquery to display data for the hotels  */
-.country-info,
-.hotels,
-.additional-info,
-.saved-info {
-    display: none;
-}
-
 /* ------------------- Hotels Section ------------------- */
 
 .card-hotel {
     width: 50vw;
     height: auto;
+    margin: 20px 0;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.4);
+    
 }
 
 

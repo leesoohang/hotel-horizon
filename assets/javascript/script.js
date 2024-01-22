@@ -315,9 +315,17 @@ function findNearbyRestaurants(location) {
 
 // Using jQuery to manipulate DOM
 function updateDOMWithHotels(hotelsData) {
+
+    
     let hotelsContainer = $(".hotels-container");
+    let searchResultsText = $("<span>").addClass(".Search-results-text")
+    // Clears any previous search
     hotelsContainer.empty();
+
+    searchResultsText.text(`(Place holder for userSearch Input): ${hotelsData.length} hotels found`)
+    hotelsContainer.append(searchResultsText);
     console.log(hotelsData);
+
     hotelsData.forEach( function(hotel) {
        
         // Some of hotels don't have reviews, need to replace that if that's the case using ternary operator
@@ -343,9 +351,9 @@ function updateDOMWithHotels(hotelsData) {
                         <button type="button" class="btn btn-info open-map" data-toggle="modal" data-target="#mapModal"
                                 data-name=${hotel.hotelName} data-lat="${hotel.hotelLat}" data-lon="${hotel.hotelLon}"
                                 data-adress="${hotel.hotelAddressRoad}, ${hotel.hotelAddressPostal}">
-                            View on Map
+                            Show on Map
                         </button>
-                        <button class="btn btn-info getRestaurant" data-target="#mapModal" data-lat="${hotel.hotelLat}" data-lon="${hotel.hotelLon}">Find Nearby Restruant</button>
+                        <button class="btn btn-info getRestaurant" data-target="#mapModal" data-lat="${hotel.hotelLat}" data-lon="${hotel.hotelLon}">Find nearby restaurants</button>
                     </div>
                 </div>
             </div>
@@ -397,25 +405,26 @@ $(".container").on("click", ".getPhoto-btn", function() {
 }
 )
 
+// Event handler for "view on map" button click
 $(function() {
+    
+    // Update the map with the address of the selected hotel when the "view on map" button is clicked
     $(".hotels-container").on("click", ".open-map", function() {
         let hotelName = $(this).data("name");
         let hotelLat = $(this).data("lat");
         let hotelLon = $(this).data("lon");
-        let hotelAdress = $(this).data("adress")
+        let hotelAddress = $(this).data("address")
 
-        // updateMap(hotelName, hotelLon, hotelLat);
-        updateMapWithAddress(hotelAdress)
-        // updateMapWithCoordinates(hotelLat, hotelLon)
-        
+        updateMapWithAddress(hotelAddress);
     });
 
+    // Update the map and display nearby restaurants when the "show restaurants" button is clicked
     $(".hotels-container").on("click", ".getRestaurant", function() {
         const lat = parseFloat($(this).data("lat"));
         const lon = parseFloat($(this).data("lon"));
     
+        // If the coordinates are in the correct format, update the map and find nearby restaurants
         if (!isNaN(lat) && !isNaN(lon)) {
-            console.log("Hotel position found:", lat, lon); // Debugging log
             updateMapWithCoordinates(lat, lon);
             findNearbyRestaurants(new google.maps.LatLng(lat, lon));
             $('#mapModal').modal('show');
@@ -423,8 +432,9 @@ $(function() {
             console.error("Invalid hotel position");
         }
     });
-    
 })
 
+// Please comment out again when you don't need it anymore just to save my API key :)
 
-getHotel("London")
+// Uncomment this to make APi call for hotels display if needed
+// getHotel("London")

@@ -35,104 +35,49 @@
         </div>
     </header>
 
-    <!-- Main container box - BOX 1 -->
-    <main class="container">
-        <section class="country-info" id="countryInfo">
-            <div class="country-name grid-item">Country Name: Placeholder</div>
-            <div class="cities grid-item">Main Cities: Placeholder</div>
-            <div class="pictures grid-item">Pictures: Placeholder</div>
-            <button class="btn btn-warning" onclick="saveToLocalStorage()">Save Place ⭐</button>
-        </section>
-        <!-- BOX 2 -->
-        <section class="hotels" id="hotels">
-            <h2>List of hotels</h2>
-            <!--Hotels content here -->
-            
-        </section>
-        <!-- BOX 3 -->
-        <section class="additional-info" id="additionalInfo">
-            <h2>Additional Information</h2>
-            <!-- Additional information about the hotels here -->
-        </section>
-        <!-- BOX 4 -->
-        <section class="saved-info" id="savedInfo">
-            <h2>Saved Places of Interest</h2>
-            <ul id="savedList"></ul>
-        </section>
+        <!-- ----------------   New Section added here ----------------  -->
 
-        <!-- Section to display aside panel -->
-        <section class="row">
-            <aside class="col-4"></aside>
-            <section class="col-8 hotels-container"></section>
-        </section>
+         <!-- Section to display aside panel and hotels -->
+    <main class="row">
 
-    </main>
 
-    <!-- Button to trigger the modal -->
-    <button type="button" class="btn btn-info" data-toggle="modal" data-target="#myModal">
-        Open Modal
-    </button>
+        <aside class="col-4">
+            <p>Saved favourite:</p>
+        </aside>
+        <section class="col-8 hotels-container"></section>
 
-    <!-- Modal -->
-    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-        aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Modal Title</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <p>This is the modal content. Just another placeholder to be customized as needed! :D
-                        Potential uses: 
-                        <ul>
-                            <li>- Advanced Search Options</li>
-                            <li>- Hotel Details</li>
-                            <li>- Login/Signup</li>
-                            <li>- Booking Confirmation</li>
-                            <li>- Special Offers/Promotions</li>
-                            <li>- Feedback/Reviews</li>
-                        </ul>
-                    </p>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                    <!-- Add additional buttons or actions here if needed -->
+
+
+        <!-- Map Modal -->
+        <div class="modal fade" id="mapModal" tabindex="-1" role="dialog" aria-labelledby="mapModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="mapModalLabel">Map Modal</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <!-- Container for the map -->
+                        <div id="mapContainer" style="height: 50vh; width: 100%;"></div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
+        <!-- ----------------   New Section End here ----------------  -->
+    </main>
+
 
 
 
     
-    <!-- Button to trigger the modal -->
-    <button type="button" class="btn btn-info open-map" data-toggle="modal" data-target="#mapModal">
-        Open Map Modal
-    </button>
 
-    <!-- Modal -->
-    <div class="modal fade" id="mapModal" tabindex="-1" role="dialog" aria-labelledby="mapModalLabel" aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="mapModalLabel">Map Modal</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <!-- Container for the map -->
-                    <div id="mapContainer" style="height: 50vh; width: 100%;"></div>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                </div>
-            </div>
-        </div>
-    </div>
+
+    
 
     <!-- Footer content-->
     <footer class="bg-dark text-white text-center py-3">
