@@ -452,13 +452,16 @@ function saveToFavourites(event) {
 
     let favouriteHotel = 
     `
-        <div class="favourite-card">
+        <div class="favourite-card" data-hotel-id="${targetHotel.hotelId}">
             <div class=favourite-image>
                 <img src="${targetHotel.hotelPhoto}">
             </div>
             <div class="favourite-text">
                 <p>${targetHotel.hotelName}</p>
                 <p>⭐${targetHotel.reviewScore}<span class="fav-price-text">£${Math.round(targetHotel.hotelNightPrice)}</span></p>
+            </div>
+            <div>
+                <button><i class="fa-solid fa-trash remove-btn"></i></button>
             </div>
         </div>
     `
@@ -481,8 +484,37 @@ function saveToFavourites(event) {
         // Update the localStorage with the new list of saved hotels
         localStorage.setItem("savedHotels", JSON.stringify(savedHotels));
     }
+}
 
+function removeFavourites(event) {
 
+    // Getting the whole favourite card element based on which buttons was clicked
+    let favClicked = event.target
+    let cardElement = $(favClicked).closest(".favourite-card");
+    let divHotelId = cardElement.attr("data-hotel-id");
+    
+    // Remove entire favourite-card
+    cardElement.remove();
+
+    // Retrieve data from local storage of saved hotels
+    let localStorageData = localStorage.getItem("savedHotels")
+    localStorageHotels = JSON.parse(localStorageData)
+    
+    // Find a matching hotel id with the one on favourite-card, if match = true otherwise returns -1
+    let index = localStorageHotels.findIndex(function(hotel) {
+        // I did not use "===" because hotel.hotelId it's a number and "divHotelId" it's a data attribute which is string
+        return hotel.hotelId == divHotelId;
+    })
+    
+    // Check if we found a match on hotelId
+    if (index !== -1) {
+        // Use the splice method to remove the element at the 'index' position from the 'localStorageHotels' array. 
+        localStorageHotels.splice(index, 1);
+        // Update our local storage with array.
+        localStorage.setItem("savedHotels", JSON.stringify(localStorageHotels));
+    } else {
+        console.log("This hotel was not saved in localStorageHotels.")
+    }
     
 }
 
@@ -498,13 +530,16 @@ function fetchSavedLocalStorage() {
         hotelData.forEach(function(element) {
             let favouriteHotel = 
             `
-                <div class="favourite-card">
+                <div class="favourite-card" data-hotel-id="${element.hotelId}">
                     <div class=favourite-image>
                         <img src="${element.hotelPhoto}">
                     </div>
                     <div class="favourite-text">
                         <p>${element.hotelName}</p>
                         <p>⭐${element.reviewScore}<span class="fav-price-text">£${Math.round(element.hotelNightPrice)}</span></p>
+                    </div>
+                    <div>
+                        <button><i class="fa-solid fa-trash remove-btn"></i></button>
                     </div>
                 </div>
             `
@@ -593,6 +628,10 @@ $(function() {
     $(".hotels-container").on("click", ".saveFavourite", function(event) {
         console.log("Event click is working")
         saveToFavourites(event);
+    })
+
+    $(".favourite-container").on("click", ".remove-btn", function(event) {
+        removeFavourites(event);
     })
 })
 

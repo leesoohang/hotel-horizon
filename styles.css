@@ -78,7 +78,7 @@ header {
 }
 
 /* Search Button Styles */
-button {
+/* button {
     padding: 10px;
     background: linear-gradient(135deg, #FFD700, #dc4927);
     text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
@@ -86,7 +86,7 @@ button {
     border-radius: 4px;
     cursor: pointer;
     transition: background-color 0.3s, box-shadow 0.3s;
-}
+} */
 
 button:hover {
     background: linear-gradient(135deg, #dc4927, #FFD700);
