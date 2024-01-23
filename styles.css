@@ -1,4 +1,4 @@
-/* Logo Styles */
+/* --------------------  Logo Section ---------------------- */
 .logo-container {
     position: absolute;
     top: 20px; 
@@ -11,7 +11,7 @@
     height: auto;
 }
 
-/* General Styles */
+/* -------------------- General Section ---------------------- */
 body {
     margin: 0;
     padding: 0;
@@ -19,7 +19,8 @@ body {
     font-family: 'Arial', sans-serif;
 }
 
-/* Header - Hero Styles */
+
+/* -------------------- Header Section ---------------------- */
 header {
     position: relative;
     height: 50vh;
@@ -43,39 +44,15 @@ header {
     z-index: 2; 
 }
 
-/* Search Container Styles */
-.search-container {
-    text-align: center;
-    margin-top: 20px;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    z-index: 1;
-    display: flex; 
-    flex-direction: column;
-    align-items: center;
+/* ------------------- Main Page Content Section ------------------- */
+main {
+    grid-gap: 20px;
+    padding: 20px;
 }
 
-.search-text {
-    color: #ffffff;
-    font-size: 40px;
-    position: relative;
-    text-shadow: 2px 2px 4px black; 
-}
 
-/* Search Wrapper Styles */
-.search-wrapper {
-    display: flex; 
-    align-items: center;
-    justify-content: center;
-}
+/* --------------------  Search Bar Section ---------------------- */
 
-.search-wrapper input {
-    padding: 10px;
-    margin-right: 5px; 
-    width: 300px;
-}
 
 /* Search Button Styles */
 /* button {
@@ -98,8 +75,19 @@ button:active {
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
 }
 
-/* Searched Country Information Styles - BOXES */
+/* ------------------- Card Hotels Section ------------------- */
 
+.card-hotel {
+    width: 40vw;
+    height: auto;
+    margin: 20px 0;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.4);
+}
+
+.heart-icon {
+    background: transparent;
+    border: none;
+}
 
 .country-info, .hotels, .additional-info, .saved-info {
     opacity: 0.9;
@@ -139,31 +127,7 @@ button.btn-warning.active {
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
 }
 
-
-/* ------------------- Main styles ------------------- */
-main {
-    grid-gap: 20px;
-    padding: 20px;
-}
-
-
-/* ------------------- Hotels Section ------------------- */
-
-.card-hotel {
-    width: 25vw;
-    height: auto;
-    margin: 20px 0;
-    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.4);
-}
-
-.heart-icon {
-    background: transparent;
-    border: none;
-}
-
-
-
-/* --------------------  Aside Section ---------------------- */
+/* --------------------  Aside Saved Favourites Section ---------------------- */
 .favourite-card {
     display: flex;
     width: 250px;
@@ -202,7 +166,7 @@ main {
 }
 
 
-/* Photo Modal styling */
+/* --------------------  Photos Gallery Modal Section ---------------------- */
 .modal-dialog {
     max-height: 80vh;
     display: flex;
@@ -228,7 +192,7 @@ main {
     object-fit: cover;
 }
 
-/* Footer Styles */
+/* --------------------  Footer Section ---------------------- */
 footer {
     background-color: #333;
     color: white; 
@@ -244,85 +208,3 @@ footer p {
     font-size: 14px;
 }
 
-
-/* Media Query for Tablets */
-@media only screen and (max-width: 768px) {
-    .logo {
-        max-width: 40%;
-    }
-}
-
-/* Media Query for Mobile Phones */
-@media only screen and (max-width: 480px) {
-    .logo-container {
-        left: 50%;
-        transform: translateX(-50%);
-        text-align: center;
-        margin-bottom: 50px;
-        z-index: 2;
-    }
-
-    .logo {
-        max-width: 60%; 
-    }
-
-    .search-container {
-        margin-top: 10px; 
-        width: 80%;
-    }
-
-    .search-text {
-        font-size: 24px; 
-        margin-top: 50px;
-    }
-
-    .search-wrapper {
-        flex-direction: column;
-        align-items: center;
-    }
-
-    .search-wrapper input {
-        width: 80%; 
-        margin-bottom: 10px;
-    }
-
-    button {
-        padding: 8px;
-        height: 40px;
-        width: 50%;
-    }
-
-    button.btn-warning {
-        width: 140px;
-    }
-    
-    button.btn-info {
-        font-size: 14px;
-    }
-
-    
-    .hotels h2,
-    .additional-info h2,
-    .saved-info h2 {
-        font-size: 25px;
-        font-weight: bold;
-    }
-
-    main {
-        grid-template-columns: 1fr; 
-    }
-
-    .country-info,
-    .hotels,
-    .additional-info,
-    .saved-info {
-        width: 100%; 
-        margin-right: 0; 
-    }
-}
-
-/* Maps  */
-
-#map {
-    height: 50%;
-}
