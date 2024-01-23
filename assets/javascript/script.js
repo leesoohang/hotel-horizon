@@ -360,7 +360,7 @@ function updateDOMWithHotels(hotelsData) {
                                Show on Map
                            </button>
                            <button class="btn btn-info getRestaurant" data-target="#mapModal" data-lat="${hotel.hotelLat}" data-lon="${hotel.hotelLon}">Find nearby restaurants</button>
-                           <button class="btn btn-info saveFavourite">Save</button>
+                           <button class="saveFavourite"><i class="fa-regular fa-heart heart-icon"></i></button>
                        </div>
                    </div>
                </div>
@@ -435,56 +435,70 @@ function saveHotelData(processedHotels) {
     });
 }
 
-// Function to add hotels to favourites
+// New function to remove/add items based on click of the heart
 function saveToFavourites(event) {
-
-    // Get data-id attribute from hotel that has been clicked to add to favourite
     let dataId = $(event.target).closest(".card-hotel").data("id");
-    console.log(dataId)
-    
-
-    // Find matching hotelId with the one that has been clicked
+    let icon = $(event.target).closest(".saveFavourite").find(".heart-icon");
     let targetHotel = savedHotelData.find(function(element) {
-        return element.hotelId == dataId;
+        return element.hotelId == dataId
+    } );
+
+    if (!targetHotel) {
+        console.error("Hotel not found");
+        return;
+    }
+
+    let savedHotels = localStorage.getItem("savedHotels");
+    savedHotels = savedHotels ? JSON.parse(savedHotels) : [];
+
+    let hotelIndex = savedHotels.findIndex(function(hotel) {
+        return hotel.hotelId === targetHotel.hotelId;
     })
 
-    let favouriteContainer = $(".favourite-container");
+    // Toggle favorite state
+    if (icon.hasClass("fa-regular")) {
+        // Add to favorites
+        icon.removeClass("fa-regular fa-heart").addClass("fa-solid fa-heart").css("color", "#be2323");
+        if (hotelIndex === -1) {
+            savedHotels.push(targetHotel);
+            appendToFavorites(targetHotel);
+        }
+    } else {
+        // Remove from favorites
+        icon.removeClass("fa-solid fa-heart").addClass("fa-regular fa-heart").css("color", "");
+        if (hotelIndex !== -1) {
+            savedHotels.splice(hotelIndex, 1);
+            removeFromFavorites(targetHotel.hotelId);
+        }
+    }
 
-    let favouriteHotel = 
-    `
-        <div class="favourite-card" data-hotel-id="${targetHotel.hotelId}">
+    localStorage.setItem("savedHotels", JSON.stringify(savedHotels));
+}
+
+
+function appendToFavorites(hotel) {
+        let favouriteHotel = 
+        `
+        <div class="favourite-card" data-hotel-id="${hotel.hotelId}">
             <div class=favourite-image>
-                <img src="${targetHotel.hotelPhoto}">
+                <img src="${hotel.hotelPhoto}">
             </div>
             <div class="favourite-text">
-                <p>${targetHotel.hotelName}</p>
-                <p>⭐${targetHotel.reviewScore}<span class="fav-price-text">£${Math.round(targetHotel.hotelNightPrice)}</span></p>
+                <p>${hotel.hotelName}</p>
+                <p>⭐${hotel.reviewScore}<span class="fav-price-text">£${Math.round(hotel.hotelNightPrice)}</span></p>
             </div>
             <div>
                 <button><i class="fa-solid fa-trash remove-btn"></i></button>
             </div>
         </div>
     `
-    favouriteContainer.append(favouriteHotel);
-    
-    // Fetch the saved hotels from localStorage
-    let savedHotels = localStorage.getItem("savedHotels");
-
-    // Parse the saved hotels or initialize an empty array if none exist
-    savedHotels = savedHotels ? JSON.parse(savedHotels) : [];
-
-    // Check if hotel is already added to favourites
-    let isAlreadySaved = savedHotels.some(function(hotel) {
-       return hotel.hotelId === targetHotel.hotelId
-    })
-
-    if (!isAlreadySaved) {
-        // Add the new hotel to the array of saved hotels
-        savedHotels.push(targetHotel);
-        // Update the localStorage with the new list of saved hotels
-        localStorage.setItem("savedHotels", JSON.stringify(savedHotels));
-    }
+        $(".favourite-container").append(favouriteHotel);
 }
+
+function removeFromFavorites(hotelId) {
+        $(".favourite-container").find(`div[data-hotel-id='${hotelId}']`).remove();
+}
+
 
 function removeFavourites(event) {
 
@@ -593,9 +607,6 @@ $(".container").on("click", ".getPhoto-btn", function() {
 )
 
 
-
-
-
 // Event handlers for buttons click
 $(function() {
     fetchSavedLocalStorage();
@@ -626,13 +637,19 @@ $(function() {
     });
 
     $(".hotels-container").on("click", ".saveFavourite", function(event) {
-        console.log("Event click is working")
+        // Stop the event from bubbling up to parent elements
+        event.stopPropagation();
+
         saveToFavourites(event);
     })
 
     $(".favourite-container").on("click", ".remove-btn", function(event) {
+        // Stop the event from bubbling up to parent elements
+        event.stopPropagation();
+
         removeFavourites(event);
     })
+    
 })
 
 

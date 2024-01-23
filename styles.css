@@ -154,8 +154,13 @@ main {
     height: auto;
     margin: 20px 0;
     box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.4);
-    
 }
+
+.heart-icon {
+    background: transparent;
+    border: none;
+}
+
 
 
 /* --------------------  Aside Section ---------------------- */
