@@ -332,7 +332,18 @@ function updateDOMWithHotels(hotelsData) {
     hotelsContainer.append(searchResultsText);
     console.log(hotelsData);
 
+    let savedHotels = localStorage.getItem("savedHotels");
+    savedHotels = savedHotels ? JSON.parse(savedHotels) : [];
+
+
     hotelsData.forEach( function(hotel) {
+
+        
+        let isFavourite = savedHotels.some(function(savedHotel) {
+            return savedHotel.hotelId === hotel.hotelId;
+        })
+        let heartClass = isFavourite ? "fa-solid fa-heart" : "fa-regular fa-heart";
+        let heartColor = isFavourite ? "color: #be2323;" : "";
        
         // Some of hotels don't have reviews, need to replace that if that's the case using ternary operator
         let reviewScore = hotel.reviewScore ? `⭐${hotel.reviewScore} (${hotel.reviewScoreWord})` : "No score yet";
@@ -360,8 +371,8 @@ function updateDOMWithHotels(hotelsData) {
                                Show on Map
                            </button>
                            <button class="btn btn-info getRestaurant" data-target="#mapModal" data-lat="${hotel.hotelLat}" data-lon="${hotel.hotelLon}">Find nearby restaurants</button>
-                           <button class="saveFavourite"><i class="fa-regular fa-heart heart-icon"></i></button>
-                       </div>
+                           <button class="btn btn-info saveFavourite"><i class="${heartClass} heart-icon" style="${heartColor}"></i></button>
+                           </div>
                    </div>
                </div>
              `;
@@ -526,6 +537,18 @@ function removeFavourites(event) {
         localStorageHotels.splice(index, 1);
         // Update our local storage with array.
         localStorage.setItem("savedHotels", JSON.stringify(localStorageHotels));
+
+
+        let hotelCard = $(".hotels-container").find(`div[data-id='${divHotelId}']`);
+        
+        // Check if the hotel card was found
+        if (hotelCard.length) {
+            // Find the .heart-icon within the .saveFavourite element of the hotel card
+            let heartIcon = hotelCard.find(".saveFavourite .heart-icon");
+            heartIcon.removeClass("fa-solid fa-heart")
+                     .addClass("fa-regular fa-heart")
+                     .css("color", "");
+        };
     } else {
         console.log("This hotel was not saved in localStorageHotels.")
     }
@@ -653,4 +676,4 @@ $(function() {
 })
 
 
-// getHotel("London");
+getHotel("London");
