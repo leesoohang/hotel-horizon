@@ -80,7 +80,7 @@ function getHotel(userInput) {
         const options = {
 	        method: 'GET',
 	        headers: {
-		        'X-RapidAPI-Key': 'b5a9039af8mshf35a3ef3045004ep1efb1cjsndf46ef774554',
+		        'X-RapidAPI-Key': 'c0c6ff76f6msh726f85fa5d00292p172032jsn01b171ce0c0c',
 		        'X-RapidAPI-Host': 'booking-com.p.rapidapi.com'
 	        }
         };
@@ -115,7 +115,7 @@ function getHotelPhotos(hotelId) {
     const options = {
 	    method: 'GET',
 	    headers: {
-		    'X-RapidAPI-Key': 'b5a9039af8mshf35a3ef3045004ep1efb1cjsndf46ef774554',
+		    'X-RapidAPI-Key': 'c0c6ff76f6msh726f85fa5d00292p172032jsn01b171ce0c0c',
 		    'X-RapidAPI-Host': 'booking-com.p.rapidapi.com'
 	}
 };
@@ -228,7 +228,7 @@ function createMarker(place) {
     const marker = new google.maps.Marker({
         map,
         position: place.geometry.location,
-        label: "Your Hotel",
+        icon: "../../media/icons/hotel.png",
     });
 
     // Add the new marker to the markers array
@@ -241,6 +241,14 @@ function createMarker(place) {
     });
 }
 
+// Function to clear markers as it was printing markers even when just pressed show hotel,
+// then markers for the restruants should not be visible
+function clearRestaurantMarkers() {
+    restaurantMarkers.forEach(marker => marker.setMap(null));
+    restaurantMarkers = [];
+}
+
+
 // Updating map using a adress
 function updateMapWithAddress(address) {
     
@@ -250,6 +258,9 @@ function updateMapWithAddress(address) {
         if (status === google.maps.GeocoderStatus.OK) {
             map.setCenter(results[0].geometry.location);
 
+            //Clear markers for the restaurants
+            clearRestaurantMarkers()
+
             // Clear existing markers
             hotelMarkers.forEach(marker => marker.setMap(null));
             hotelMarkers = [];
@@ -257,6 +268,7 @@ function updateMapWithAddress(address) {
             const marker = new google.maps.Marker({
                 map,
                 position: results[0].geometry.location,
+                icon: "../../media/icons/hotel.png",
             });
 
             hotelMarkers.push(marker);
@@ -272,6 +284,9 @@ function updateMapWithCoordinates(lat, lon) {
     const location = new google.maps.LatLng(lat, lon);
     map.setCenter(location);
 
+    //Clear markers for the restaurants
+    clearRestaurantMarkers()
+
     // Clear existing markers
     hotelMarkers.forEach(marker => marker.setMap(null));
     hotelMarkers = [];
@@ -283,10 +298,11 @@ function updateMapWithCoordinates(lat, lon) {
     const marker = new google.maps.Marker({
         map,
         position: location,
-        label: "Your Hotel",
+        icon: "../../media/icons/hotel.png",
     });
 
     hotelMarkers.push(marker);
+    
 }
 
 
@@ -310,7 +326,7 @@ function findNearbyRestaurants(location) {
                 const marker = new google.maps.Marker({
                     map,
                     position: place.geometry.location,
-                    icon: "https://maps.google.com/mapfiles/kml/pal2/icon36.png",
+                    icon: "../../media/icons/restaurant.png",
                 });
 
                 restaurantMarkers.push(marker);
@@ -334,6 +350,7 @@ function updateDOMWithHotels(hotelsData) {
 
     let adultsNumber = $("#adultsInput").val();
     let roomsNumber = $("#roomsInput").val();
+    let userInput = $("#cityInput").val()
 
     if (adultsNumber < 2) {
         adultsNumber = `${adultsNumber} adult`;
@@ -349,11 +366,11 @@ function updateDOMWithHotels(hotelsData) {
     
     let hotelsContainer = $(".hotels-container");
     let hotelsSection = $(".hotels-section");
-    let searchResultsText = $("<p>").addClass(".search-results-text")
+    let searchResultsText = $("<p>").addClass("search-results-text")
     // Clears any previous search
     hotelsContainer.empty();
-
-    searchResultsText.text(`(Place holder for userSearch Input): ${hotelsData.length} hotels found`)
+    $(".search-results-text").remove();
+    searchResultsText.text(`${userInput}: ${hotelsData.length} hotels found`)
     hotelsSection.prepend(searchResultsText);
     
 
@@ -382,24 +399,24 @@ function updateDOMWithHotels(hotelsData) {
                        <img class="card-img-top" src=${hotel.hotelPhoto} alt="Hotel picture">
                        <p class="per-night-price">Per <span>Night </span><span id="night-amount">£${Math.round(hotel.hotelNightPrice)}</span></p>
                        <button class="btn saveFavourite"><i class="${heartClass} heart-icon" style="${heartColor}"></i></button>
-                   </div>
+                       <button class="btn btn-info getPhoto-btn">Gallery</button>
+                    </div>
                    <div class="card-content">
                        <div class="card-body">
                            <p class="card-text">${reviewScore}</span></p>
                            <h5>${hotel.hotelName}</h5>
-                           <p class="card-text">Address: ${hotel.hotelAddressRoad}, <span> ${hotel.hotelAddressPostal}</span></p>
+                           <p class="card-text">${hotel.hotelAddressRoad}, <span> ${hotel.hotelAddressPostal}</span></p>
                            <p>${roomsNumber}, ${adultsNumber}</p>
                            <p class="total-price">£${Math.round(hotel.totalPrice)}</p>                           
                        </div>
                        <div class="card-body card-buttons">
-                           <a class="btn btn-info" href="${hotel.bookingComLink}" target="_blank">Book Now</a>
-                           <button class="btn btn-info getPhoto-btn">Photos</button>
+                           <a class="btn btn-info booking-link" href="${hotel.bookingComLink}" target="_blank">Book Now</a>
                            <button type="button" class="btn btn-info open-map" data-toggle="modal" data-target="#mapModal"
                                    data-name=${hotel.hotelName} data-lat="${hotel.hotelLat}" data-lon="${hotel.hotelLon}"
                                   data-address="${hotel.hotelAddressRoad}, ${hotel.hotelAddressPostal}">
                                Show on Map
                            </button>
-                           <button class="btn btn-info getRestaurant" data-target="#mapModal" data-lat="${hotel.hotelLat}" data-lon="${hotel.hotelLon}">Find nearby restaurants</button>
+                           <button class="btn btn-info getRestaurant" data-target="#mapModal" data-lat="${hotel.hotelLat}" data-lon="${hotel.hotelLon}">Nearby restaurants</button>
                         </div>
                    </div>
                </div>
@@ -725,5 +742,19 @@ $(function() {
         removeFavourites(event);
     })
     
+
+    // Event listener to show/hide favourites
+    $(".toggle-fav").on("click", function() {
+        let favContainer = $(".favourite-container");
+        let toggleBtn = $(".toggle-fav");
+    
+        if(favContainer.css("display") === "none") {
+            favContainer.show();
+            toggleBtn.text("Hide Favourites")
+        } else {
+            favContainer.hide();
+            toggleBtn.text("Show Favourites")
+        }
+    });
 })
 
