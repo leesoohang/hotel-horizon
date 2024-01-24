@@ -15,11 +15,18 @@
 
 <body>
 
-    <!-- Header with Jumbotron -->
-    <header class="jumbotron bg-dark text-white text-center mb-0">
+<!-- Header with Jumbotron -->
+<header class="jumbotron jumbotron-gradient text-center mb-0">
+    <!-- Logo container -->
+    <div class="logo-container">
+        <img src="/media/logo.png" alt="Logo" class="logo">
+    </div>
+    <!-- Title and subtitle -->
+    <div>
         <h1 class="display-4">Hotel Horizon</h1>
         <p class="lead">Your perfect stay awaits!</p>
-    </header>
+    </div>
+</header>
 
     <!-- Search Bar Section -->
     <section class="container mt-4">
@@ -27,7 +34,7 @@
             <div class="col-md-8">
                 <div class="card">
                     <div class="card-body">
-                        <h2 class="card-title text-center">Search Hotels</h2>
+                        <h2 class="card-title text-center">Search Hotels:</h2>
                         <form>
                             <div class="form-row">
                                 <div class="form-group col-md-6">
@@ -68,16 +75,14 @@
          <!-- Section to display aside panel and hotels -->
     <main class="container">
         <div class="row">
-            <aside class="col-4">
+                <aside class="col-12 col-md-4">
                 <p>Saved favourite:</p>
                 <div class="favourite-container"></div>
             </aside>
-            <section class="col-8">
+                <section class="col-12 col-md-8">
                 <div class="hotels-container"></div>
             </section>
         </div>
-
-
 
 
         <!-- Map Modal -->
