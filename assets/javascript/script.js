@@ -228,7 +228,7 @@ function createMarker(place) {
     const marker = new google.maps.Marker({
         map,
         position: place.geometry.location,
-        icon: "../../media/icons/hotel.png",
+        icon: "https://raw.githubusercontent.com/leesoohang/hotel-horizon/main/media/icons/hotel.png",
     });
 
     // Add the new marker to the markers array
@@ -268,7 +268,7 @@ function updateMapWithAddress(address) {
             const marker = new google.maps.Marker({
                 map,
                 position: results[0].geometry.location,
-                icon: "../../media/icons/hotel.png",
+                icon: "https://raw.githubusercontent.com/leesoohang/hotel-horizon/main/media/icons/hotel.png",
             });
 
             hotelMarkers.push(marker);
@@ -298,7 +298,7 @@ function updateMapWithCoordinates(lat, lon) {
     const marker = new google.maps.Marker({
         map,
         position: location,
-        icon: "../../media/icons/hotel.png",
+        icon: "https://raw.githubusercontent.com/leesoohang/hotel-horizon/main/media/icons/hotel.png",
     });
 
     hotelMarkers.push(marker);
@@ -326,7 +326,7 @@ function findNearbyRestaurants(location) {
                 const marker = new google.maps.Marker({
                     map,
                     position: place.geometry.location,
-                    icon: "../../media/icons/restaurant.png",
+                    icon: "https://raw.githubusercontent.com/leesoohang/hotel-horizon/main/media/icons/restaurant.png",
                 });
 
                 restaurantMarkers.push(marker);
