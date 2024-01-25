@@ -512,6 +512,7 @@ function appendToFavorites(hotel) {
         $(".toggle-fav").show().text("Hide Favourites");
 }
 
+
 function removeFromFavorites(hotelId) {
         $(".favourite-container").find(`div[data-hotel-id='${hotelId}']`).remove();
 }
@@ -574,6 +575,7 @@ function fetchSavedLocalStorage() {
     // Statement to check if user has saved to favourites if not hide favourites button
     if (favouritesLength > 0) {
         $(".toggle-fav").show();
+        $(".toggle-fav").text("Hide Favourites");
     } else {
         $(".toggle-fav").hide();
     }

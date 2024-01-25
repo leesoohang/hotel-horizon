@@ -27,15 +27,11 @@ body {
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    text-align: left;
+    background: url('media/header-background.jpg') center/cover no-repeat;
+
 }
 
 .jumbotron-gradient {
-    background-image: url('media/background-header.jpg');
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
-    background-attachment: fixed;
     color: white;
 }
 
@@ -76,7 +72,7 @@ body {
     margin-top: 0%;
     margin-bottom: 6%;
     font-size: 70px;
-
+}
 
 .jumbotron p {
     font-size: 25px;
@@ -291,8 +287,6 @@ main {
 /* ------------------- Main Card Hotels Section end here ------------------- */
 
 
-
-
 .country-info, .hotels, .additional-info, .saved-info {
     opacity: 0.9;
     padding: 15px;
@@ -324,9 +318,16 @@ li {
    font-weight: bold;
 }
 
-.card-hotel .total-price {
-    margin-top: 1%;
-    color: grey;
+/* Price Text */
+.total-price {
+    margin-top: -20px;
+    font-size: 1.5rem;
+}
+
+/* Card Buttons  */
+.card-hotel .card-footer button {
+    margin: 5px;
+    align-items: center;    
 }
 
 /* Buttons Styles */
@@ -384,6 +385,7 @@ li {
 }
 
 /* --------------------  Aside Favourite Cards Section ---------------------- */
+
 .favourite-card {
     display: flex;
     width: 350px;
@@ -456,7 +458,14 @@ li {
     font-size: 17px;
 }
 
-/* ------------ Photos Gallery Modal Section ------------ */
+/* Show Favourite Button  */
+.toggle-fav {
+    margin-bottom: 20px;
+}
+
+
+
+/* --------------------  Photos Gallery Modal Section ---------------------- */
 .modal-dialog {
     max-height: 80vh;
     display: flex;
@@ -490,7 +499,7 @@ footer {
     padding: 10px; 
     bottom: -45%;
     width: 100%;
-    position: absolute;
+    position: fixed;
 }
 
 footer p {
@@ -553,6 +562,7 @@ footer p {
 
     .favourite-text {
         font-size: 14px;
+        margin-left: px;
     }
 
     .main-content {
@@ -579,9 +589,7 @@ footer p {
         grid-template-columns: 1fr; 
     }
 
-    
-
-
+}
 
 
 /* ---------- Media query for larger screens ---------- */
@@ -605,8 +613,6 @@ footer p {
         margin-left: -18%;
     }
 
-    .btn-primary {
-    }
 
     
     /* --- Favourite Cards --- */
@@ -622,6 +628,8 @@ footer p {
     .favourite-card img {
         width: 200px;
     }
+
+}
 
 
 @media screen and (max-width: 992px) {
