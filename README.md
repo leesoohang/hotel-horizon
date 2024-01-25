@@ -13,7 +13,7 @@ https://leesoohang.github.io/hotel-horizon/
 
 Link to the repository:
 
-https://github.com/leesoohang/hotel-horizon
+https://github.com/leesoohang/hotel-horizon.git
 
 ## User Story
 
