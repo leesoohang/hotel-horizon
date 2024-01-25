@@ -10,7 +10,6 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <!-- service that provides modern functionality on older browsers that do not natively support it. -->
     <script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto&display=swap">
     <link rel="stylesheet" href="styles.css">
 </head>
 
@@ -34,43 +33,39 @@
         <div class="row justify-content-center">
             <div class="col-md-8">
                 <div class="card">
-                    <div class="card-body form-search">
-                       
-                        <form id="form">
+                    <div class="card-body">
+                        <h2 class="card-title text-center">Search Hotels:</h2>
+                        <form>
                             <div class="form-row">
                                 <div class="form-group col-md-6">
 <<<<<<< Updated upstream
                                     <label for="cityInput">City of Interest</label>
-<<<<<<< HEAD
                                     <input type="text" class="form-control" id="cityInput" placeholder="Type the city">
 =======
                                     <label for="cityInput">City</label>
                                     <input type="text" class="form-control" id="cityInput" placeholder="Type the city" required>
 >>>>>>> Stashed changes
-=======
-                                    <input type="text" class="form-control" id="cityInput" placeholder="Type the city" required>
->>>>>>> main
                                 </div>
                                 <div class="form-group col-md-3">
                                     <label for="checkInDate">Check-In Date</label>
-                                    <input type="date" class="form-control" id="checkInDate" required>
+                                    <input type="date" class="form-control" id="checkInDate">
                                 </div>
                                 <div class="form-group col-md-3">
                                     <label for="checkOutDate">Check-Out Date</label>
-                                    <input type="date" class="form-control" id="checkOutDate" required>
+                                    <input type="date" class="form-control" id="checkOutDate">
                                 </div>
                             </div>
                             <div class="form-row">
                                 <div class="form-group col-md-3">
                                     <label for="adultsInput">Adults</label>
-                                    <input type="number" class="form-control" id="adultsInput" min="1" required>
+                                    <input type="number" class="form-control" id="adultsInput" min="1">
                                 </div>
                                 <div class="form-group col-md-3">
                                     <label for="roomsInput">Rooms</label>
-                                    <input type="number" class="form-control" id="roomsInput" min="1" required>
+                                    <input type="number" class="form-control" id="roomsInput" min="1">
                                 </div>
                                 <div class="form-group col-md-6">
-                                    <button type="submit" class="btn btn-primary btn-block search-btn">Search 🔎</button>
+                                    <button type="button" class="btn btn-primary btn-block" onclick="searchHotels()">Search 🔎</button>
                                 </div>
                             </div>
                         </form>
@@ -85,7 +80,6 @@
          <!-- Section to display aside panel and hotels -->
     <main class="container">
         <div class="row">
-<<<<<<< HEAD
 <<<<<<< Updated upstream
                 <aside class="col-12 col-md-4">
                 <p>Saved favourite:</p>
@@ -93,14 +87,9 @@
             <aside class="col-12 col-lg-4 col-md-12">
                 <button class="toggle-fav">Show Favourites</button>
 >>>>>>> Stashed changes
-=======
-            <aside class="col-12 col-lg-4 col-md-12">
-                <p>Saved favourite:</p>
-                <button class="toggle-fav">Show Favourites</button>
->>>>>>> main
                 <div class="favourite-container"></div>
             </aside>
-            <section class="col-12 col-lg-8 col-md-12 hotels-section">
+                <section class="col-12 col-md-8">
                 <div class="hotels-container"></div>
             </section>
         </div>
