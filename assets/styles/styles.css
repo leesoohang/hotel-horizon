@@ -27,7 +27,7 @@ body {
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    background: url('media/header-background.jpg') center/cover no-repeat;
+    background: url('../../media/header-background.jpg') center/cover no-repeat;
 
 }
 
@@ -608,9 +608,11 @@ footer p {
     
     /* --- Search Box --- */
     .form-search {
-        width: 140%;
         background-color: white;
-        margin-left: -18%;
+    } 
+
+    .hotels-section {
+        margin-top: 20px;
     }
 
 

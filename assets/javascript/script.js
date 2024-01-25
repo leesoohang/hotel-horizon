@@ -650,7 +650,7 @@ $(".container").on("click", ".getPhoto-btn", function() {
 )
 
 
-// Event handlers for buttons click
+// Event handlers for buttons click once document is loaded
 $(function() {
     fetchSavedLocalStorage();
 
@@ -668,9 +668,7 @@ $(function() {
     
     // Update the map with the address of the selected hotel when the "view on map" button is clicked
     $(".hotels-container").on("click", ".open-map", function() {
-        let hotelName = $(this).data("name");
-        let hotelLat = $(this).data("lat");
-        let hotelLon = $(this).data("lon");
+       
         let hotelAddress = $(this).data("address")
 
         updateMapWithAddress(hotelAddress);
