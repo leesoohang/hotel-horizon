@@ -51,16 +51,16 @@ so that I can plan for the accommodation of my next trip.
 ## Usage
 1. To find available hotels, users need to fill in all search criteria:
 
-(screenshot of application on load)
+![screen on load](/media/screenshot-onload.png)
 
 2. When hotel options are presented, users can click to book directly in Booking.com, view photo gallery, locate hotel on Google Maps, and find nearby restaurants: 
 
-(screenshot of map modal – location)
-(screenshot of map modal – restaurants)
+![hotel location on map](/media/screenshot-hotelmap.png)
+![nearby restuarants on map](/media/screenshot-restuarants.png)
 
 3. If users would like to save the hotel to favorites or view later, they can use the heart button to create a saved list. For their next visit to the application or for comparison in detail, the links of favorited item take them to the booking page:
 
-(screenshot of saved list)
+![favorite list](/media/screenshot-favorite.png)
 
 ## Credits
 Contributors:
