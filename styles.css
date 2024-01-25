@@ -1,11 +1,11 @@
-/* -------------------- General Section ---------------------- */
+/* ----------- General Section ---------- */
 body {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
     font-family: 'Roboto', sans-serif;
+    position: relative;
 }
-
 
 /* --------------------  Logo Section ---------------------- */
 .logo-container {
@@ -20,25 +20,38 @@ body {
     height: auto;
 }
 
-/* -------------------- Header Jumbotron Section ---------------------- */
+/* ---------- Jumbotron Section ---------- */
 .jumbotron {
-    height: 15vw;
+    height: 18vw;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    background: url('media/header-background.jpg') center/cover no-repeat;
+
 }
 
 .jumbotron-gradient {
-    background: linear-gradient(to bottom, #001f3f, #3498db, #f39c12, #d35400);
     color: white;
 }
 
+/* --- Logo --- */
+.logo-container {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    z-index: 2;
+}
+
+.logo {
+    max-width: 100px; 
+    height: auto;
+}
+/* --- Header Text ---*/
 .jumbotron h1,
 .jumbotron p {
-    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
-    margin: 5px 0;
-    font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif
+    text-shadow: 2px 2px 4px rgb(0, 0, 0);
+    font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
 }
 
 .error-message {
@@ -54,14 +67,18 @@ body {
 }
 
 /* ------------------- Main Page Content Section ------------------- */
-main {
-    grid-gap: 20px;
-    padding: 20px;
-    margin-bottom: 60px; 
+
+.jumbotron h1 {
+    margin-top: 0%;
+    margin-bottom: 6%;
+    font-size: 70px;
 }
 
+.jumbotron p {
+    font-size: 25px;
+}
 
-/* -------  Search Bar Section -------- */
+/* ----------  Search Box Section ---------- */
 .card-title {
     margin-bottom: 2vw; 
     font-size: 28px;
@@ -73,15 +90,24 @@ main {
     padding: 40px;
 }
 
-/* Search Button Styles */
+/* --- Search Button --- */
 .btn-primary {
     box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
-    width: 12vw;
     margin: 0 auto;
+    margin-top: 5%;
+    width: 40%;
+    padding: 2%;
 }
 
 
-/* ------------------- Main Card Hotels Section ------------------- */
+
+/* ------------- Main Section ------------- */
+main {
+    grid-gap: 20px;
+    padding: 20px;
+    margin-bottom: 60px; 
+}
+
 .hotels-container {
     display: grid;
     grid-template-columns: repeat(2,1fr);
@@ -181,6 +207,7 @@ main {
     width: 50px;
     border-radius: 25px;
     height: 50px;
+
 }
 
 .heart-icon {
@@ -188,6 +215,63 @@ main {
     border: none;
     font-size: 24px;
     margin-top: 3px;
+}
+
+
+/* Card Image */
+.card-img-top {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.card-image {
+    position: relative;
+    background-size: cover;
+    background-position: cover;
+    width: 100%;
+    min-height: 250px;
+    max-height: 250px;
+    
+}
+
+/* Card Contents */
+.card-content {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    flex: 1;
+}
+
+.card-body {
+    padding: 15px;
+}
+
+.total-price {
+    margin-top: -20px;
+    font-size: 1.5rem;
+}
+
+.per-night-price {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    border-radius: 25px;
+    width: 70px;
+    line-height: 1;
+    background-color: rgba(255, 255, 255, 0.9);
+    padding: 10px;
+    font-size: 0.8rem;
+}
+
+#night-amount {
+    margin-top: 3px;
+    font-size: 1.3rem;
+    background-color: transparent;
+    color: #3498db;
 }
 
 .getPhoto-btn {
@@ -201,7 +285,6 @@ main {
 
 
 /* ------------------- Main Card Hotels Section end here ------------------- */
-
 
 
 .country-info, .hotels, .additional-info, .saved-info {
@@ -235,14 +318,74 @@ li {
    font-weight: bold;
 }
 
-/* Buttons Styles */
+/* Price Text */
+.total-price {
+    margin-top: -20px;
+    font-size: 1.5rem;
+}
+
+/* Card Buttons  */
 .card-hotel .card-footer button {
     margin: 5px;
     align-items: center;    
 }
 
+/* Buttons Styles */
+.card-buttons {
+    display: flex;
+    justify-content: space-around;
+    position: relative;
+    height: 25%;
+}
+
+.saveFavourite {
+    position: absolute;
+    bottom: 15px;
+    right: 20px;
+    background-color: rgba(255, 255, 255, 0.9);
+    width: 50px;
+    border-radius: 25px;
+    height: 50px;
+}
+
+.heart-icon {
+    background: transparent;
+    border: none;
+    font-size: 24px;
+    margin-top: 3px;
+}
+
+.getPhoto-btn {
+    position: absolute;
+    bottom: 10px;
+    left: 0px;
+    background-color: rgba(255, 255, 255, 0.9);;
+    border: none;
+    color: black;
+}
+
+.card-hotel .card-footer button {
+    margin: 5px;
+    align-items: center; 
+}
+
+.booking-link {
+    display: flex;
+    align-items: center;
+    height: 60px;
+    position: absolute;
+    right: 40px;
+    bottom: 100px;
+    text-align: center;
+    background-color: #007bff;
+}
+
+.card-hotel .booking-link:hover {
+    background-color: #0056b3; 
+}
 
 /* --------------------  Aside Favourite Cards Section ---------------------- */
+
 .favourite-card {
     display: flex;
     width: 350px;
@@ -277,6 +420,35 @@ li {
     margin-left: 10px;
 }
 
+
+/* Favourites Button Styling */
+.toggle-fav {
+    background-color: #007bff; 
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px; 
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s ease; 
+    margin-bottom: 4%;
+}
+
+.remove-btn {
+    border: none;
+    background: transparent;
+}
+
+.toggle-fav:hover {
+    background-color: #0056b3; 
+}
+
+.toggle-fav.btn-primary {
+    background-color: #007bff; 
+}
+
+
+
 .remove-btn {
     border: none;
     background: transparent;
@@ -285,6 +457,12 @@ li {
 .remove-btn {
     font-size: 17px;
 }
+
+/* Show Favourite Button  */
+.toggle-fav {
+    margin-bottom: 20px;
+}
+
 
 
 /* --------------------  Photos Gallery Modal Section ---------------------- */
@@ -313,14 +491,15 @@ li {
     object-fit: cover;
 }
 
-/* --------------------  Footer Section ---------------------- */
+/* -------------------- Footer Section -------------------- */
 footer {
     background-color: #333;
     color: white; 
     text-align: center; 
     padding: 10px; 
-    bottom: 0;
+    bottom: -45%;
     width: 100%;
+    position: fixed;
 }
 
 footer p {
@@ -329,36 +508,49 @@ footer p {
 }
 
 
-/* --------------------  Media Query Responsiveness Section ---------------------- */
+/* ---------- Media Query Responsiveness Section ---------- */
 
-/* Media query for mobile phones */
+/* ------ Media query for mobile phones ------ */
 @media screen and (max-width: 600px) {
-    /*Jumbotron Adjustments*/
+
+    /* ---Jumbotron--- */
     .jumbotron {
         padding: 10px; 
-        height: 60vw;
+        height: 50%;
+        display: flex;
         flex-direction: column; 
         align-items: center;
     }
 
     .jumbotron h1 {
-        font-size: 40px;
+        font-size: 38px;
+        margin-left: 0;
+        margin-top: 20%;
+        margin-bottom: 20%;
+    }
+
+ 
+    .jumbotron p {
+        text-align: center;
+        margin-left: 0;
+        font-size: 15p;
     }
     
-    /* Logo Adjustments */
+    /* --- Logo --- */
     .logo-container {
         position: static; 
-        margin-bottom: 10px;
+        margin-top: 5%;
+        margin-left: -70%;
     }
     
-    /* Search Button Adjustments */
+    /* --- Search Box --- */
     .btn-primary {
         box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
         width: 45vw;
         margin: 0 auto;
     }
     
-    /* Main Cards and Favourite Cards Adjustments*/ 
+    /* --- Favourite Cards --- */
     .card-hotel, .favourite-card {
         width: 80vw; 
         margin: 20px auto;
@@ -370,7 +562,7 @@ footer p {
 
     .favourite-text {
         font-size: 14px;
-        margin-left: -25px;
+        margin-left: px;
     }
 
     .main-content {
@@ -382,7 +574,6 @@ footer p {
     .favourite-card {
         order: -1;
     }
-
     /* Hotels container */
     .hotels-container {
         grid-template-columns: 1fr; 
@@ -392,7 +583,53 @@ footer p {
     .card-hotel .card-footer button,
     .favourite-card .card-footer button {
         margin-left: 0;
+  }
+    /* --- Hotels Container --- */
+    .hotels-container {
+        grid-template-columns: 1fr; 
     }
+}
+
+
+
+
+/* ---------- Media query for larger screens ---------- */
+@media screen and (min-width: 601px)  {
+    
+    /* --- Jumbotron --- */
+    .jumbotron {
+        height: auto;
+    }
+
+    .jumbotron h1,
+    .jumbotron p {
+       text-align: center;
+       margin-left: auto;
+    }
+    
+    /* --- Search Box --- */
+    .form-search {
+        width: 140%;
+        background-color: white;
+        margin-left: -18%;
+    }
+
+
+    
+    /* --- Favourite Cards --- */
+    .favourite-card {
+        width: 25vw;
+    }
+
+    .favourite-card {
+        width: auto;
+        font-size: 18px;
+    }
+
+    .favourite-card img {
+        width: 200px;
+    }
+
 }
 
 
@@ -421,6 +658,7 @@ footer p {
 }
 
 @media screen and (min-width: 993px) {
+
     .card-buttons {
         padding: 10px; 
     }
@@ -428,6 +666,7 @@ footer p {
     .card-buttons > button {
         margin: 2px;
     }
+
 }
 
 @media screen and (max-width: 842px) {

@@ -512,6 +512,7 @@ function appendToFavorites(hotel) {
         $(".toggle-fav").show().text("Hide Favourites");
 }
 
+
 function removeFromFavorites(hotelId) {
         $(".favourite-container").find(`div[data-hotel-id='${hotelId}']`).remove();
 }
