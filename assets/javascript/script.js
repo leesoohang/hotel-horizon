@@ -5,7 +5,7 @@ let savedHotelData = [];
 
 // Fetch cordinates based on user Input
 function getCordinates(userInput, callback) {
-    console.log("from cordinates: ", userInput)
+    
 
 
     const url = `https://forward-reverse-geocoding.p.rapidapi.com/v1/search?q=${userInput}&accept-language=en&polygon_threshold=0.0`;
@@ -26,7 +26,6 @@ function getCordinates(userInput, callback) {
                 lat: data[0].lat,
                 lon: data[0].lon
             }
-            console.log(cordinates)
             callback(cordinates)
         })
         .catch(function(error) {
@@ -75,7 +74,7 @@ function getHotel(userInput) {
 
         // Combine the base URL and query parameters
         const url = `${baseUrl}?${queryParamStrings.join('&')}`;
-        console.log(url);
+        
 
         const options = {
 	        method: 'GET',
@@ -157,7 +156,6 @@ function getHotelPhotos(hotelId) {
 
 // Function to extract specific data for each hotel from the api response
 function processHotels(hotelsData) {
-    console.log(hotelsData)
 
     return hotelsData.map(function(hotel) {
         
