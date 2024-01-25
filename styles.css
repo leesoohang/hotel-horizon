@@ -3,12 +3,16 @@ body {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+<<<<<<< HEAD
 <<<<<<< Updated upstream
     font-family: 'Arial', sans-serif;
 =======
     font-family: 'Roboto', sans-serif;
     position: relative;
 >>>>>>> Stashed changes
+=======
+    font-family: 'Roboto', sans-serif;
+>>>>>>> main
 }
 
 
@@ -67,7 +71,7 @@ body {
     text-shadow: 2px 2px 4px rgba(145, 145, 145, 0.5);
 }
 
-.card-body {
+.form-search {
     box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.4);
     padding: 40px;
 }
@@ -84,6 +88,7 @@ body {
 
 <<<<<<< Updated upstream
 /* ------------------- Main Card Hotels Section ------------------- */
+<<<<<<< HEAD
 =======
 /* ------------- Main Section ------------- */
 main {
@@ -92,6 +97,8 @@ main {
     margin-bottom: 60px; 
 }
 
+=======
+>>>>>>> main
 .hotels-container {
     display: grid;
     grid-template-columns: repeat(2,1fr);
@@ -99,20 +106,115 @@ main {
     row-gap: 10px;
     column-gap: 40px;
 }
+<<<<<<< HEAD
 >>>>>>> Stashed changes
+=======
+
+>>>>>>> main
 
 .card-hotel {
-    width: 40vw;
-    height: auto;
+    display: flex;
+    flex-direction: column;
     margin: 20px 0;
     box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.4);
+<<<<<<< HEAD
 <<<<<<< Updated upstream
+=======
+    overflow: hidden;
+    
+    
+}
+
+.card-content {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    flex: 1;
+}
+
+.card-body {
+    padding: 15px;
+}
+
+.card-buttons {
+    display: flex;
+    justify-content: space-around;
+    position: relative;
+    height: 25%;
+}
+
+.booking-link {
+    display: flex;
+    align-items: center;
+    height: 60px;
+    position: absolute;
+    right: 40px;
+    bottom: 100px;
+    text-align: center;
+    background-color: #3498db;
+}
+
+.card-img-top {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.card-image {
+    position: relative;
+    background-size: cover;
+    background-position: cover;
+    width: 100%;
+    min-height: 250px;
+    max-height: 250px;
+    
+}
+
+.total-price {
+    margin-top: -20px;
+    font-size: 1.5rem;
+}
+
+.per-night-price {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    border-radius: 25px;
+    width: 70px;
+    line-height: 1;
+    background-color: rgba(255, 255, 255, 0.9);
+    padding: 10px;
+    font-size: 0.8rem;
+}
+
+#night-amount {
+    margin-top: 3px;
+    font-size: 1.3rem;
+    background-color: transparent;
+    color: #3498db;
+}
+
+.saveFavourite {
+    position: absolute;
+    bottom: 15px;
+    right: 20px;
+    background-color: rgba(255, 255, 255, 0.9);
+    width: 50px;
+    border-radius: 25px;
+    height: 50px;
+>>>>>>> main
 }
 
 .heart-icon {
     background: transparent;
     border: none;
+    font-size: 24px;
+    margin-top: 3px;
 }
+<<<<<<< HEAD
 =======
     overflow: hidden;
     
@@ -176,6 +278,23 @@ main {
 }
 
 >>>>>>> Stashed changes
+=======
+
+.getPhoto-btn {
+    position: absolute;
+    bottom: 10px;
+    left: 0px;
+    background-color: rgba(255, 255, 255, 0.9);;
+    border: none;
+    color: black;
+}
+
+
+/* ------------------- Main Card Hotels Section end here ------------------- */
+
+
+
+>>>>>>> main
 .country-info, .hotels, .additional-info, .saved-info {
     opacity: 0.9;
     padding: 15px;
@@ -277,9 +396,10 @@ li {
 }
 
 .favourite-image img {
-    width: 90%;
+    width: 150px;
     height: 100%;
     object-fit: cover; 
+    margin-right: 20px;
 }
 
 .favourite-text {
@@ -300,6 +420,7 @@ li {
     margin-left: 10px;
 }
 
+<<<<<<< HEAD
 <<<<<<< Updated upstream
 =======
 /* Favourites Button Styling */
@@ -314,6 +435,17 @@ li {
     transition: background-color 0.3s ease; 
     margin-bottom: 4%;
 }
+=======
+.remove-btn {
+    border: none;
+    background: transparent;
+}
+
+.remove-btn {
+    font-size: 17px;
+}
+
+>>>>>>> main
 
 .toggle-fav:hover {
     background-color: #0056b3; 
@@ -445,7 +577,15 @@ footer p {
         order: -1;
     }
 
+<<<<<<< HEAD
 <<<<<<< Updated upstream
+=======
+    /* Hotels container */
+    .hotels-container {
+        grid-template-columns: 1fr; 
+    }
+
+>>>>>>> main
     /* Card Buttons Adjustments */
     .card-hotel .card-footer button,
     .favourite-card .card-footer button {
@@ -465,6 +605,7 @@ footer p {
 }
 
 
+<<<<<<< HEAD
 <<<<<<< Updated upstream
 
 =======
@@ -507,6 +648,33 @@ footer p {
         width: 200px;
     }
 
+=======
+@media screen and (max-width: 992px) {
+    .hotels-container {
+        grid-template-columns: 1fr; 
+    }
+}
+
+@media screen and (max-width: 1200px) {
+    .favourite-card {
+        width: 25vw;
+    }
+}
+
+@media screen and (max-width: 992px) {
+    .favourite-card {
+        width: auto;
+    }
+}
+
+@media screen and (max-width: 1162px) {
+    .favourite-card img{
+        width: 100px;
+    }
+}
+
+@media screen and (min-width: 993px) {
+>>>>>>> main
     .card-buttons {
         padding: 10px; 
     }
@@ -514,5 +682,9 @@ footer p {
     .card-buttons > button {
         margin: 2px;
     }
+<<<<<<< HEAD
 }
 >>>>>>> Stashed changes
+=======
+}
+>>>>>>> main
