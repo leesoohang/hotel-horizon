@@ -3,18 +3,22 @@ body {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-<<<<<<< HEAD
-<<<<<<< Updated upstream
-    font-family: 'Arial', sans-serif;
-=======
     font-family: 'Roboto', sans-serif;
     position: relative;
->>>>>>> Stashed changes
-=======
-    font-family: 'Roboto', sans-serif;
->>>>>>> main
 }
 
+/* --------------------  Logo Section ---------------------- */
+.logo-container {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    z-index: 2;
+}
+
+.logo {
+    max-width: 100px; 
+    height: auto;
+}
 
 /* ---------- Jumbotron Section ---------- */
 .jumbotron {
@@ -54,11 +58,25 @@ body {
     font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
 }
 
+.error-message {
+    color: #a94442;
+    background-color: #f2dede;
+    border-color: #ebccd1; 
+    padding: 15px; 
+    margin-bottom: 20px;
+    margin-top: 15px;
+    border: 1px solid transparent; 
+    border-radius: 4px;
+    
+}
+
+/* ------------------- Main Page Content Section ------------------- */
+
 .jumbotron h1 {
     margin-top: 0%;
     margin-bottom: 6%;
     font-size: 70px;
-}
+
 
 .jumbotron p {
     font-size: 25px;
@@ -86,10 +104,7 @@ body {
 }
 
 
-<<<<<<< Updated upstream
-/* ------------------- Main Card Hotels Section ------------------- */
-<<<<<<< HEAD
-=======
+
 /* ------------- Main Section ------------- */
 main {
     grid-gap: 20px;
@@ -97,8 +112,6 @@ main {
     margin-bottom: 60px; 
 }
 
-=======
->>>>>>> main
 .hotels-container {
     display: grid;
     grid-template-columns: repeat(2,1fr);
@@ -106,20 +119,13 @@ main {
     row-gap: 10px;
     column-gap: 40px;
 }
-<<<<<<< HEAD
->>>>>>> Stashed changes
-=======
 
->>>>>>> main
 
 .card-hotel {
     display: flex;
     flex-direction: column;
     margin: 20px 0;
     box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.4);
-<<<<<<< HEAD
-<<<<<<< Updated upstream
-=======
     overflow: hidden;
     
     
@@ -205,7 +211,7 @@ main {
     width: 50px;
     border-radius: 25px;
     height: 50px;
->>>>>>> main
+
 }
 
 .heart-icon {
@@ -214,12 +220,7 @@ main {
     font-size: 24px;
     margin-top: 3px;
 }
-<<<<<<< HEAD
-=======
-    overflow: hidden;
-    
-    
-}
+
 
 /* Card Image */
 .card-img-top {
@@ -277,9 +278,6 @@ main {
     color: #3498db;
 }
 
->>>>>>> Stashed changes
-=======
-
 .getPhoto-btn {
     position: absolute;
     bottom: 10px;
@@ -294,7 +292,7 @@ main {
 
 
 
->>>>>>> main
+
 .country-info, .hotels, .additional-info, .saved-info {
     opacity: 0.9;
     padding: 15px;
@@ -420,9 +418,7 @@ li {
     margin-left: 10px;
 }
 
-<<<<<<< HEAD
-<<<<<<< Updated upstream
-=======
+
 /* Favourites Button Styling */
 .toggle-fav {
     background-color: #007bff; 
@@ -435,17 +431,11 @@ li {
     transition: background-color 0.3s ease; 
     margin-bottom: 4%;
 }
-=======
+
 .remove-btn {
     border: none;
     background: transparent;
 }
-
-.remove-btn {
-    font-size: 17px;
-}
-
->>>>>>> main
 
 .toggle-fav:hover {
     background-color: #0056b3; 
@@ -465,8 +455,6 @@ li {
 .remove-btn {
     font-size: 17px;
 }
-
->>>>>>> Stashed changes
 
 /* ------------ Photos Gallery Modal Section ------------ */
 .modal-dialog {
@@ -576,39 +564,26 @@ footer p {
     .favourite-card {
         order: -1;
     }
-
-<<<<<<< HEAD
-<<<<<<< Updated upstream
-=======
     /* Hotels container */
     .hotels-container {
         grid-template-columns: 1fr; 
     }
 
->>>>>>> main
     /* Card Buttons Adjustments */
     .card-hotel .card-footer button,
     .favourite-card .card-footer button {
         margin-left: 0;
-=======
+  }
     /* --- Hotels Container --- */
     .hotels-container {
         grid-template-columns: 1fr; 
     }
 
-    .card-hotel .open-map,
-    .card-hotel .getRestaurant {
-        margin: 2%;
-        height: 110%;
->>>>>>> Stashed changes
-    }
-}
+    
 
 
-<<<<<<< HEAD
-<<<<<<< Updated upstream
 
-=======
+
 /* ---------- Media query for larger screens ---------- */
 @media screen and (min-width: 601px)  {
     
@@ -648,7 +623,7 @@ footer p {
         width: 200px;
     }
 
-=======
+
 @media screen and (max-width: 992px) {
     .hotels-container {
         grid-template-columns: 1fr; 
@@ -674,7 +649,7 @@ footer p {
 }
 
 @media screen and (min-width: 993px) {
->>>>>>> main
+
     .card-buttons {
         padding: 10px; 
     }
@@ -682,9 +657,12 @@ footer p {
     .card-buttons > button {
         margin: 2px;
     }
-<<<<<<< HEAD
+
 }
->>>>>>> Stashed changes
-=======
+
+@media screen and (max-width: 842px) {
+    .btn-primary {
+        min-width: 150px;
+    }
 }
->>>>>>> main
+
