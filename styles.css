@@ -6,6 +6,7 @@ body {
     font-family: 'Roboto', sans-serif;
 }
 
+
 /* --------------------  Logo Section ---------------------- */
 .logo-container {
     position: absolute;
@@ -40,6 +41,18 @@ body {
     font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif
 }
 
+.error-message {
+    color: #a94442;
+    background-color: #f2dede;
+    border-color: #ebccd1; 
+    padding: 15px; 
+    margin-bottom: 20px;
+    margin-top: 15px;
+    border: 1px solid transparent; 
+    border-radius: 4px;
+    
+}
+
 /* ------------------- Main Page Content Section ------------------- */
 main {
     grid-gap: 20px;
@@ -48,7 +61,7 @@ main {
 }
 
 
-/* --------------------  Search Bar Section ---------------------- */
+/* -------  Search Bar Section -------- */
 .card-title {
     margin-bottom: 2vw; 
     font-size: 28px;

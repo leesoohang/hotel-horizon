@@ -102,9 +102,23 @@ function getHotel(userInput) {
             })
             .catch(function(error) {
                 console.error("Error message: " + error);
-                alert("Please make sure you input correct data into search criteria.\n( eg. Check check-In/Out dates...)")
+                errorDisplay();
             })
     })
+}
+
+// Function to display error message to the user if wrong input data
+function errorDisplay() {
+    let searchContainer = $(".search-bar-container")
+    let errorMessage = $("<p>Please make sure you input correct data into search criteria.\n( eg. Check check-In/Out dates...)</p>").addClass("error-message");
+
+    searchContainer.append(errorMessage)
+    errorMessage.show();
+
+    // Hide the error message after 5 seconds
+    setTimeout(function() {
+        errorMessage.hide();
+    }, 5000);
 }
 
 
@@ -426,75 +440,7 @@ function updateDOMWithHotels(hotelsData) {
         hotelsContainer.append(hotelCard);
     });
 }
-//  ------------------    This testing function is for layout only so no need to call APi ------------
 
-
-
-// function updateDOMWithHotels(hotels) {
-
-//     let hotelsContainer = $(".hotels-container");
-//     let searchResultsText = $("<span>").addClass(".Search-results-text")
-//     // Clears any previous search
-//     hotelsContainer.empty();
-
-//     searchResultsText.text(`(Place holder for userSearch Input): ${hotels.length} hotels found`)
-//     hotelsContainer.append(searchResultsText);
-//     console.log(hotels);
-
-//     let savedHotels = localStorage.getItem("savedHotels");
-//     savedHotels = savedHotels ? JSON.parse(savedHotels) : [];
-
-
-//     hotels.forEach( function(hotel) {
-
-        
-//         let isFavourite = savedHotels.some(function(savedHotel) {
-//             return savedHotel.hotelId === hotel.hotelId;
-//         })
-//         let heartClass = isFavourite ? "fa-solid fa-heart" : "fa-regular fa-heart";
-//         let heartColor = isFavourite ? "color: #be2323;" : "";
-       
-//         // Some of hotels don't have reviews, need to replace that if that's the case using ternary operator
-//         let reviewScore = hotel.reviewScore ? `⭐${hotel.reviewScore} (${hotel.reviewScoreWord})` : "No score yet";
-//         // Creating hotel card element with data retrieved from API
-//         let hotelCard = 
-//              `
-//               <div class="card-hotel" data-id=${hotel.hotelId}>
-//                    <div class="card-image">
-//                        <img class="card-img-top" src=${hotel.hotelPhoto} alt="Hotel picture">
-//                        <p class="per-night-price">Per <span>Night </span><span id="night-amount">£87</span></p>
-//                        <button class="btn saveFavourite"><i class="${heartClass} heart-icon" style="${heartColor}"></i></button>
-//                     </div>
-//                    <div class="card-content">
-//                        <div class="card-body">
-//                            <p class="card-text">${reviewScore}</span></p>
-//                            <h5>${hotel.hotelName}</h5>
-//                            <p class="card-text">Address: ${hotel.hotelAddressRoad}, <span> ${hotel.hotelAddressPostal}</span></p>
-//                            <p>6 nights, 2 adults:</p>
-//                            <p class="card-text total-price">£390</p>
-//                        </div>
-//                        <div class="card-footer">
-//                            <a class="btn btn-info" href="${hotel.bookingComLink}" target="_blank">Book Now</a>
-//                            <button class="btn btn-info getPhoto-btn">Photos</button>
-//                            <button type="button" class="btn btn-info open-map" data-toggle="modal" data-target="#mapModal"
-//                                    data-name=${hotel.hotelName} data-lat="${hotel.hotelLat}" data-lon="${hotel.hotelLon}"
-//                                    data-address="${hotel.hotelAddressRoad}, ${hotel.hotelAddressPostal}">
-//                                Show on Map
-//                            </button>
-//                            <button class="btn btn-info getRestaurant" data-target="#mapModal" data-lat="${hotel.hotelLat}" data-lon="${hotel.hotelLon}">Nearby restaurants</button>
-//                            </div>
-//                    </div>
-//                </div>
-//              `;
-//         // Append card to main container in HTML
-//         hotelsContainer.append(hotelCard);
-//     });
-// }
-// updateDOMWithHotels(hotels)
-
-
-
-// ----------------- End of Testing Function ---------------------------------------------------------
 
 // Function to save all data retrieved from fetch to global variable
 function saveHotelData(processedHotels) {
@@ -544,6 +490,7 @@ function saveToFavourites(event) {
 }
 
 
+// Function to add to favourites
 function appendToFavorites(hotel) {
         let favouriteHotel = 
         `
@@ -552,7 +499,7 @@ function appendToFavorites(hotel) {
                 <img src="${hotel.hotelPhoto}">
             </div>
             <div class="favourite-text">
-                <p>${hotel.hotelName}</p>
+            <a href="${hotel.bookingComLink}" target="_blank"><p>${hotel.hotelName}</p></a>
                 <p>⭐${hotel.reviewScore}<span class="fav-price-text">£${Math.round(hotel.hotelNightPrice)}</span></p>
             </div>
             <div>
@@ -561,13 +508,15 @@ function appendToFavorites(hotel) {
         </div>
     `
         $(".favourite-container").append(favouriteHotel);
+        
+        $(".toggle-fav").show().text("Hide Favourites");
 }
 
 function removeFromFavorites(hotelId) {
         $(".favourite-container").find(`div[data-hotel-id='${hotelId}']`).remove();
 }
 
-
+// Function to remove items from favourites
 function removeFavourites(event) {
 
     // Getting the whole favourite card element based on which buttons was clicked
@@ -612,13 +561,25 @@ function removeFavourites(event) {
     
 }
 
+// Function to load data from local storage
 function fetchSavedLocalStorage() {
     let favouriteContainer = $(".favourite-container");
     let savedHotels = localStorage.getItem("savedHotels");
     
     hotelData = JSON.parse(savedHotels)
+
+    // Check if favourites are empty or not and assign value based on that.
+    let favouritesLength = hotelData ? hotelData.length : 0;
+
+    // Statement to check if user has saved to favourites if not hide favourites button
+    if (favouritesLength > 0) {
+        $(".toggle-fav").show();
+    } else {
+        $(".toggle-fav").hide();
+    }
     
 
+    // If some hotels are saved to local storage loop through it and display it to favourite section
     if (savedHotels) {
        
         hotelData.forEach(function(element) {
@@ -629,7 +590,7 @@ function fetchSavedLocalStorage() {
                         <img src="${element.hotelPhoto}">
                     </div>
                     <div class="favourite-text">
-                        <p>${element.hotelName}</p>
+                        <a href="${element.bookingComLink}" target="_blank"><p>${element.hotelName}</p></a>
                         <p>⭐${element.reviewScore}<span class="fav-price-text">£${Math.round(element.hotelNightPrice)}</span></p>
                     </div>
                     <div>
@@ -645,6 +606,8 @@ function fetchSavedLocalStorage() {
     
 }
 
+
+// Event listener to display modal with photos when "gallery is clicked"
 $(".container").on("click", ".getPhoto-btn", function() {
 
     // Use closest to get closest parent element with class .hotel and extract data attribute data-id
