@@ -588,9 +588,8 @@ footer p {
     .hotels-container {
         grid-template-columns: 1fr; 
     }
+
 }
-
-
 
 
 /* ---------- Media query for larger screens ---------- */
@@ -674,3 +673,4 @@ footer p {
         min-width: 150px;
     }
 }
+
