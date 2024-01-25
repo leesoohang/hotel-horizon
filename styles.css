@@ -626,7 +626,10 @@ footer p {
     }
 
     .favourite-card img {
-        width: 200px;
+        width: 150px;
+    }
+    .favourite-text {
+        font-size: 14px;
     }
 
 }
